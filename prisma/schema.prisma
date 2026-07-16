@@ -1,0 +1,104 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+  runtime  = "workerd"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum PricingMode {
+  TOTAL
+  PER_PERSON
+}
+
+model Package {
+  id            String   @id @default(cuid())
+  name          String
+  participants  Int      @default(1)
+  marginPercent Float    @default(0)
+  exchangeRate  Float    @default(4300)
+  notes         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  hotels       Hotel[]
+  flights      Flight[]
+  documents    DocumentCost[]
+  transports   Transport[]
+  guides       GuideFee[]
+  additionals  AdditionalService[]
+}
+
+model Hotel {
+  id         String      @id @default(cuid())
+  package    Package     @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  packageId  String
+  city       String      // Mekkah | Madinah
+  name       String
+  nights     Int         @default(1)
+  rooms      Int         @default(1)
+  ratePerNight Float     @default(0)
+  pricingMode  PricingMode @default(TOTAL)
+  createdAt  DateTime    @default(now())
+}
+
+model Flight {
+  id         String      @id @default(cuid())
+  package    Package     @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  packageId  String
+  route      String
+  airline    String?
+  qty        Int         @default(1)
+  price      Float       @default(0)
+  pricingMode  PricingMode @default(PER_PERSON)
+  createdAt  DateTime    @default(now())
+}
+
+model DocumentCost {
+  id         String      @id @default(cuid())
+  package    Package     @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  packageId  String
+  label      String      // visa, handling, dll
+  qty        Int         @default(1)
+  price      Float       @default(0)
+  pricingMode  PricingMode @default(PER_PERSON)
+  createdAt  DateTime    @default(now())
+}
+
+model Transport {
+  id         String      @id @default(cuid())
+  package    Package     @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  packageId  String
+  label      String
+  qty        Int         @default(1)
+  price      Float       @default(0)
+  pricingMode  PricingMode @default(TOTAL)
+  createdAt  DateTime    @default(now())
+}
+
+model GuideFee {
+  id         String      @id @default(cuid())
+  package    Package     @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  packageId  String
+  label      String      @default("Muthawwif")
+  days       Int         @default(1)
+  rate       Float       @default(0)
+  pricingMode  PricingMode @default(TOTAL)
+  createdAt  DateTime    @default(now())
+}
+
+model AdditionalService {
+  id         String      @id @default(cuid())
+  package    Package     @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  packageId  String
+  label      String
+  qty        Int         @default(1)
+  price      Float       @default(0)
+  pricingMode  PricingMode @default(TOTAL)
+  createdAt  DateTime    @default(now())
+}
