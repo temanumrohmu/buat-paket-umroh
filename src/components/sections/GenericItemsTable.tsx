@@ -40,15 +40,15 @@ export default function GenericItemsTable({
   return (
     <div className="space-y-3">
       {items.length === 0 && (
-        <p className="text-sm text-slate-400">Belum ada item. Klik &quot;{addLabel}&quot; untuk menambah.</p>
+        <p className="text-sm text-navy-400">Belum ada item. Klik &quot;{addLabel}&quot; untuk menambah.</p>
       )}
       {items.map((item, index) => (
         <div
           key={item.id ?? index}
-          className="grid grid-cols-1 gap-2 rounded-md border border-slate-100 p-3 sm:grid-cols-12 sm:items-center"
+          className="grid grid-cols-1 gap-2 rounded-md border border-gold-100 p-3 sm:grid-cols-12 sm:items-center"
         >
           <input
-            className="rounded border border-slate-200 px-2 py-1.5 text-sm sm:col-span-4"
+            className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-4"
             placeholder={labelPlaceholder}
             value={item.label}
             onChange={(e) => updateItem(index, { label: e.target.value })}
@@ -56,7 +56,7 @@ export default function GenericItemsTable({
           <input
             type="number"
             min={0}
-            className="rounded border border-slate-200 px-2 py-1.5 text-sm sm:col-span-2"
+            className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-2"
             placeholder="Qty"
             value={item.qty}
             onChange={(e) => updateItem(index, { qty: Number(e.target.value) })}
@@ -64,20 +64,20 @@ export default function GenericItemsTable({
           <input
             type="number"
             min={0}
-            className="rounded border border-slate-200 px-2 py-1.5 text-sm sm:col-span-2"
+            className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-2"
             placeholder="Harga (SAR)"
             value={item.price}
             onChange={(e) => updateItem(index, { price: Number(e.target.value) })}
           />
           <select
-            className="rounded border border-slate-200 px-2 py-1.5 text-sm sm:col-span-2"
+            className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-2"
             value={item.pricingMode}
             onChange={(e) => updateItem(index, { pricingMode: e.target.value as PricingMode })}
           >
             <option value="TOTAL">Total</option>
             <option value="PER_PERSON">Per Orang</option>
           </select>
-          <div className="flex items-center justify-between text-sm text-slate-600 sm:col-span-1">
+          <div className="flex items-center justify-between text-sm text-navy-700 sm:col-span-1">
             <span className="font-medium">{totalFn(item).toLocaleString("en-US")}</span>
           </div>
           <button
@@ -92,7 +92,7 @@ export default function GenericItemsTable({
       <button
         type="button"
         onClick={addItem}
-        className="rounded-md border border-dashed border-slate-300 px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-50"
+        className="rounded-md border border-dashed border-gold-300 px-3 py-1.5 text-sm text-navy-700 hover:bg-gold-50"
       >
         + {addLabel}
       </button>

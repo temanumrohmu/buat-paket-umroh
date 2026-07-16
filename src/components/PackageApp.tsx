@@ -79,18 +79,18 @@ export default function PackageApp({
   const participants = Math.max(1, pkg.participants || 1);
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      <header className="border-b border-slate-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-4">
-          <h1 className="text-xl font-bold text-slate-800">Ke Mekkah</h1>
-          <p className="text-sm text-slate-500">HPP Umrah Private Calculator</p>
+    <div className="min-h-screen bg-gradient-to-b from-gold-50 via-[#fbf7ec] to-navy-50">
+      <header className="border-b-4 border-gold-400 bg-gradient-to-r from-navy-950 via-navy-900 to-navy-800 shadow-md">
+        <div className="mx-auto max-w-6xl px-4 py-5">
+          <h1 className="text-2xl font-bold tracking-wide text-gold-300">Ke Mekkah</h1>
+          <p className="text-sm text-navy-100">HPP Umrah Private Calculator</p>
         </div>
       </header>
 
       <main className="mx-auto max-w-6xl px-4 py-6">
-        <div className="mb-6 flex flex-wrap items-center gap-2 rounded-lg border border-slate-200 bg-white p-3 shadow-sm">
+        <div className="mb-6 flex flex-wrap items-center gap-2 rounded-lg border border-gold-200 bg-white p-3 shadow-sm">
           <select
-            className="rounded border border-slate-200 px-2 py-1.5 text-sm"
+            className="rounded border border-navy-100 px-2 py-1.5 text-sm text-navy-900 focus:border-gold-400 focus:outline-none"
             value={pkg.id ?? ""}
             onChange={(e) => (e.target.value ? loadPackage(e.target.value) : startNew())}
           >
@@ -103,14 +103,14 @@ export default function PackageApp({
           </select>
           <button
             onClick={startNew}
-            className="rounded-md border border-slate-300 px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-50"
+            className="rounded-md border border-navy-200 px-3 py-1.5 text-sm text-navy-700 hover:bg-navy-50"
           >
             Paket Baru
           </button>
           <button
             onClick={savePackage}
             disabled={saving}
-            className="rounded-md bg-emerald-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-emerald-700 disabled:opacity-50"
+            className="rounded-md bg-gold-500 px-3 py-1.5 text-sm font-medium text-navy-950 hover:bg-gold-600 disabled:opacity-50"
           >
             {saving ? "Menyimpan..." : "Simpan"}
           </button>
@@ -125,7 +125,7 @@ export default function PackageApp({
           <div className="ml-auto flex gap-2">
             <button
               onClick={() => exportPackagePdf(pkg)}
-              className="rounded-md border border-slate-300 px-3 py-1.5 text-sm text-slate-600 hover:bg-slate-50"
+              className="rounded-md border border-navy-700 px-3 py-1.5 text-sm text-navy-800 hover:bg-navy-50"
             >
               Export PDF
             </button>
@@ -146,51 +146,51 @@ export default function PackageApp({
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
           <div className="space-y-4 lg:col-span-2">
-            <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
+            <div className="rounded-lg border border-gold-200 bg-white p-4 shadow-sm">
               <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <label className="text-sm">
-                  <span className="mb-1 block text-slate-600">Nama Paket</span>
+                  <span className="mb-1 block text-navy-700">Nama Paket</span>
                   <input
-                    className="w-full rounded border border-slate-200 px-2 py-1.5"
+                    className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none"
                     placeholder="cth. Umrah Private 9 Hari - Keluarga Fulan"
                     value={pkg.name}
                     onChange={(e) => setPkg({ ...pkg, name: e.target.value })}
                   />
                 </label>
                 <label className="text-sm">
-                  <span className="mb-1 block text-slate-600">Jumlah Peserta</span>
+                  <span className="mb-1 block text-navy-700">Jumlah Peserta</span>
                   <input
                     type="number"
                     min={1}
-                    className="w-full rounded border border-slate-200 px-2 py-1.5"
+                    className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none"
                     value={pkg.participants}
                     onChange={(e) => setPkg({ ...pkg, participants: Number(e.target.value) })}
                   />
                 </label>
                 <label className="text-sm">
-                  <span className="mb-1 block text-slate-600">Margin Keuntungan (%)</span>
+                  <span className="mb-1 block text-navy-700">Margin Keuntungan (%)</span>
                   <input
                     type="number"
                     min={0}
-                    className="w-full rounded border border-slate-200 px-2 py-1.5"
+                    className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none"
                     value={pkg.marginPercent}
                     onChange={(e) => setPkg({ ...pkg, marginPercent: Number(e.target.value) })}
                   />
                 </label>
                 <label className="text-sm">
-                  <span className="mb-1 block text-slate-600">Kurs SAR → IDR</span>
+                  <span className="mb-1 block text-navy-700">Kurs SAR → IDR</span>
                   <input
                     type="number"
                     min={0}
-                    className="w-full rounded border border-slate-200 px-2 py-1.5"
+                    className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none"
                     value={pkg.exchangeRate}
                     onChange={(e) => setPkg({ ...pkg, exchangeRate: Number(e.target.value) })}
                   />
                 </label>
                 <label className="text-sm sm:col-span-2">
-                  <span className="mb-1 block text-slate-600">Catatan</span>
+                  <span className="mb-1 block text-navy-700">Catatan</span>
                   <textarea
-                    className="w-full rounded border border-slate-200 px-2 py-1.5"
+                    className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none"
                     rows={2}
                     value={pkg.notes}
                     onChange={(e) => setPkg({ ...pkg, notes: e.target.value })}
