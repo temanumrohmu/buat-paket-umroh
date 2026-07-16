@@ -82,8 +82,8 @@ export default function PackageApp({
     <div className="min-h-screen bg-gradient-to-b from-gold-50 via-[#fbf7ec] to-navy-50">
       <header className="border-b-4 border-gold-400 bg-gradient-to-r from-navy-950 via-navy-900 to-navy-800 shadow-md">
         <div className="mx-auto max-w-6xl px-4 py-5">
-          <h1 className="text-2xl font-bold tracking-wide text-gold-300">Ke Mekkah</h1>
-          <p className="text-sm text-navy-100">HPP Umrah Private Calculator</p>
+          <h1 className="text-2xl font-bold tracking-wide text-gold-300">Teman Umrohmu</h1>
+          <p className="text-sm text-navy-100">buat paket umroh</p>
         </div>
       </header>
 

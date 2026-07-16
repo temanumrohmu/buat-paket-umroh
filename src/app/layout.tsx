@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Ke Mekkah - HPP Umrah Private Calculator",
+  title: "Teman Umrohmu - buat paket umroh",
   description: "Kalkulator HPP paket umrah private untuk travel agency",
 };
 
