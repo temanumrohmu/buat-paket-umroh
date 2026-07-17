@@ -269,23 +269,23 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                       />
                     </label>
 
-                    <div className="grid grid-cols-2 gap-3 rounded-md border border-navy-200 bg-navy-50 p-3 sm:col-span-2">
+                    <div className="grid grid-cols-2 gap-3 rounded-md border border-navy-700 bg-navy-600 p-3 sm:col-span-2">
                       <label className="text-sm">
-                        <span className="mb-1 block font-medium text-navy-800">Kurs SAR → IDR</span>
+                        <span className="mb-1 block font-medium text-white">Kurs SAR → IDR</span>
                         <input
                           type="number"
                           min={0}
-                          className="w-full rounded border border-navy-200 bg-white px-2 py-1.5 focus:border-gold-400 focus:outline-none"
+                          className="w-full rounded border border-navy-700 bg-white px-2 py-1.5 focus:border-gold-400 focus:outline-none"
                           value={pkg.exchangeRate}
                           onChange={(e) => setPkg({ ...pkg, exchangeRate: Number(e.target.value) })}
                         />
                       </label>
                       <label className="text-sm">
-                        <span className="mb-1 block font-medium text-navy-800">Kurs USD → IDR</span>
+                        <span className="mb-1 block font-medium text-white">Kurs USD → IDR</span>
                         <input
                           type="number"
                           min={0}
-                          className="w-full rounded border border-navy-200 bg-white px-2 py-1.5 focus:border-gold-400 focus:outline-none"
+                          className="w-full rounded border border-navy-700 bg-white px-2 py-1.5 focus:border-gold-400 focus:outline-none"
                           value={pkg.usdRate}
                           onChange={(e) => setPkg({ ...pkg, usdRate: Number(e.target.value) })}
                         />
