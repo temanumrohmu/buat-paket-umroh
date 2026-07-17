@@ -28,7 +28,7 @@ export function hotelTotal(item: HotelItem, rates: Rates): number {
 
 export function flightTotal(item: FlightItem, participants: number, rates: Rates): number {
   const priceSAR = toSAR(item.price, item.currency, rates);
-  return item.pricingMode === "TOTAL" ? priceSAR * item.qty : priceSAR * participants;
+  return item.pricingMode === "TOTAL" ? priceSAR : priceSAR * participants;
 }
 
 export function documentTotal(item: DocumentItem, participants: number, rates: Rates): number {
