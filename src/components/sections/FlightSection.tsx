@@ -45,10 +45,7 @@ export default function FlightSection({
 
         return (
           <div key={item.id ?? index} className="rounded-md border border-gold-100 p-3">
-            <div className="mb-2 flex items-center justify-between">
-              <span className="text-sm font-semibold text-navy-800">
-                {item.route || "Tiket baru"}
-              </span>
+            <div className="mb-2 flex items-center justify-end">
               <button
                 type="button"
                 onClick={() => remove(index)}
@@ -73,17 +70,19 @@ export default function FlightSection({
               />
             </div>
 
-            <label className="mt-3 block text-sm sm:w-1/2">
-              <span className="mb-1 block text-xs text-navy-700">Mode Harga</span>
-              <select
-                className="w-full rounded border border-navy-100 px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
-                value={item.pricingMode}
-                onChange={(e) => update(index, { pricingMode: e.target.value as PricingMode })}
-              >
-                <option value="TOTAL">Total Semua</option>
-                <option value="PER_PERSON">Per Pax</option>
-              </select>
-            </label>
+            <div className="mt-3 rounded-md border border-navy-700 bg-navy-600 p-3 sm:w-1/2">
+              <label className="block text-sm">
+                <span className="mb-1 block text-xs font-medium text-white">Mode Harga</span>
+                <select
+                  className="w-full rounded border border-navy-700 bg-white px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
+                  value={item.pricingMode}
+                  onChange={(e) => update(index, { pricingMode: e.target.value as PricingMode })}
+                >
+                  <option value="TOTAL">Total Semua</option>
+                  <option value="PER_PERSON">Per Pax</option>
+                </select>
+              </label>
+            </div>
 
             <div className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-3">
               <label className="text-sm">
