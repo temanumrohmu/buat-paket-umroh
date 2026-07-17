@@ -338,6 +338,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                     labelPlaceholder="cth. Visa Umrah"
                     addLabel="Tambah Dokumen"
                     totalFn={(item) => documentTotal(item, participants, rates)}
+                    fixedPricingMode="PER_PERSON"
                   />
                 </Collapsible>
 

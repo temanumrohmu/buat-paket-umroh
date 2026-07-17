@@ -19,12 +19,14 @@ export default function GenericItemsTable({
   labelPlaceholder,
   addLabel,
   totalFn,
+  fixedPricingMode,
 }: {
   items: GenericLineItem[];
   onChange: (items: GenericLineItem[]) => void;
   labelPlaceholder: string;
   addLabel: string;
   totalFn: (item: GenericLineItem) => number;
+  fixedPricingMode?: PricingMode;
 }) {
   function updateItem(index: number, patch: Partial<GenericLineItem>) {
     const next = items.slice();
@@ -37,7 +39,10 @@ export default function GenericItemsTable({
   }
 
   function addItem() {
-    onChange([...items, { label: "", qty: 1, price: 0, currency: "SAR", pricingMode: "TOTAL" }]);
+    onChange([
+      ...items,
+      { label: "", qty: 1, price: 0, currency: "SAR", pricingMode: fixedPricingMode ?? "TOTAL" },
+    ]);
   }
 
   return (
@@ -51,24 +56,26 @@ export default function GenericItemsTable({
           className="grid grid-cols-1 gap-2 rounded-md border border-gold-100 p-3 sm:grid-cols-12 sm:items-center"
         >
           <input
-            className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-3"
+            className={`rounded border border-navy-100 px-2 py-1.5 text-sm ${fixedPricingMode ? "sm:col-span-4" : "sm:col-span-3"}`}
             placeholder={labelPlaceholder}
             value={item.label}
             onChange={(e) => updateItem(index, { label: e.target.value })}
           />
+          {!fixedPricingMode && (
+            <input
+              type="number"
+              min={0}
+              className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-1"
+              placeholder="Qty"
+              value={item.qty}
+              onChange={(e) => updateItem(index, { qty: Number(e.target.value) })}
+            />
+          )}
           <input
             type="number"
             min={0}
-            className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-1"
-            placeholder="Qty"
-            value={item.qty}
-            onChange={(e) => updateItem(index, { qty: Number(e.target.value) })}
-          />
-          <input
-            type="number"
-            min={0}
-            className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-2"
-            placeholder="Harga"
+            className={`rounded border border-navy-100 px-2 py-1.5 text-sm ${fixedPricingMode ? "sm:col-span-3" : "sm:col-span-2"}`}
+            placeholder="Harga/Orang"
             value={item.price}
             onChange={(e) => updateItem(index, { price: Number(e.target.value) })}
           />
@@ -83,15 +90,17 @@ export default function GenericItemsTable({
               </option>
             ))}
           </select>
-          <select
-            className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-2"
-            value={item.pricingMode}
-            onChange={(e) => updateItem(index, { pricingMode: e.target.value as PricingMode })}
-          >
-            <option value="TOTAL">Total</option>
-            <option value="PER_PERSON">Per Orang</option>
-          </select>
-          <div className="flex items-center justify-between text-sm text-navy-700 sm:col-span-1">
+          {!fixedPricingMode && (
+            <select
+              className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-2"
+              value={item.pricingMode}
+              onChange={(e) => updateItem(index, { pricingMode: e.target.value as PricingMode })}
+            >
+              <option value="TOTAL">Total</option>
+              <option value="PER_PERSON">Per Orang</option>
+            </select>
+          )}
+          <div className="flex items-center justify-between text-sm text-navy-700 sm:col-span-2">
             <span className="font-medium">{totalFn(item).toLocaleString("en-US")}</span>
           </div>
           <button
