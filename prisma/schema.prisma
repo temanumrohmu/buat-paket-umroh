@@ -108,6 +108,7 @@ model GuideFee {
   label      String      @default("Muthawwif")
   days       Int         @default(1)
   rate       Float       @default(0)
+  notes      String      @default("")
   currency     Currency    @default(SAR)
   pricingMode  PricingMode @default(TOTAL)
   createdAt  DateTime    @default(now())

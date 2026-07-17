@@ -68,6 +68,7 @@ export interface GuideItem {
   label: string;
   days: number;
   rate: number;
+  notes: string;
   currency: Currency;
   pricingMode: PricingMode;
 }
@@ -157,6 +158,7 @@ export function toGuideCreateInput(item: GuideItem) {
     label: item.label,
     days: item.days,
     rate: item.rate,
+    notes: item.notes,
     currency: item.currency,
     pricingMode: item.pricingMode,
   };
