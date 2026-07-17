@@ -5,6 +5,7 @@ import {
   toHotelCreateInput,
   toFlightCreateInput,
   toLineItemCreateInput,
+  toTransportCreateInput,
   toGuideCreateInput,
   type PackageData,
 } from "@/lib/types";
@@ -62,7 +63,7 @@ export async function PUT(request: NextRequest, ctx: RouteContext<"/api/packages
       },
       transports: {
         deleteMany: {},
-        create: body.transports?.map(toLineItemCreateInput) ?? [],
+        create: body.transports?.map(toTransportCreateInput) ?? [],
       },
       guides: {
         deleteMany: {},

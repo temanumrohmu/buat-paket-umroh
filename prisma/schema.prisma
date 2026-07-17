@@ -86,12 +86,16 @@ model DocumentCost {
 }
 
 model Transport {
-  id         String      @id @default(cuid())
-  package    Package     @relation(fields: [packageId], references: [id], onDelete: Cascade)
-  packageId  String
-  label      String
-  qty        Int         @default(1)
-  price      Float       @default(0)
+  id          String      @id @default(cuid())
+  package     Package     @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  packageId   String
+  category    String      @default("LAINNYA")
+  presetKey   String?
+  label       String
+  vehicleType String      @default("")
+  notes       String      @default("")
+  qty         Int         @default(1)
+  price       Float       @default(0)
   currency     Currency    @default(SAR)
   pricingMode  PricingMode @default(TOTAL)
   createdAt  DateTime    @default(now())

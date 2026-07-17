@@ -5,6 +5,7 @@ import {
   toHotelCreateInput,
   toFlightCreateInput,
   toLineItemCreateInput,
+  toTransportCreateInput,
   toGuideCreateInput,
   type PackageData,
 } from "@/lib/types";
@@ -38,7 +39,7 @@ export async function POST(request: NextRequest) {
       hotels: { create: body.hotels?.map(toHotelCreateInput) ?? [] },
       flights: { create: body.flights?.map(toFlightCreateInput) ?? [] },
       documents: { create: body.documents?.map(toLineItemCreateInput) ?? [] },
-      transports: { create: body.transports?.map(toLineItemCreateInput) ?? [] },
+      transports: { create: body.transports?.map(toTransportCreateInput) ?? [] },
       guides: { create: body.guides?.map(toGuideCreateInput) ?? [] },
       additionals: { create: body.additionals?.map(toLineItemCreateInput) ?? [] },
     },

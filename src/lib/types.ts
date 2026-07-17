@@ -52,7 +52,11 @@ export interface DocumentItem {
 
 export interface TransportItem {
   id?: string;
+  category: string;
+  presetKey?: string | null;
   label: string;
+  vehicleType: string;
+  notes: string;
   qty: number;
   price: number;
   currency: Currency;
@@ -124,9 +128,23 @@ export function toFlightCreateInput(item: FlightItem) {
   };
 }
 
-export function toLineItemCreateInput(item: DocumentItem | TransportItem | AdditionalItem) {
+export function toLineItemCreateInput(item: DocumentItem | AdditionalItem) {
   return {
     label: item.label,
+    qty: item.qty,
+    price: item.price,
+    currency: item.currency,
+    pricingMode: item.pricingMode,
+  };
+}
+
+export function toTransportCreateInput(item: TransportItem) {
+  return {
+    category: item.category,
+    presetKey: item.presetKey ?? null,
+    label: item.label,
+    vehicleType: item.vehicleType,
+    notes: item.notes,
     qty: item.qty,
     price: item.price,
     currency: item.currency,

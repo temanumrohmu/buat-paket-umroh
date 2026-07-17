@@ -7,10 +7,11 @@ import HotelSection from "@/components/sections/HotelSection";
 import FlightSection from "@/components/sections/FlightSection";
 import GuideSection from "@/components/sections/GuideSection";
 import GenericItemsTable from "@/components/sections/GenericItemsTable";
+import TransportSection from "@/components/sections/TransportSection";
 import SummaryPanel from "@/components/SummaryPanel";
 import LaporanView from "@/components/LaporanView";
 import { emptyPackage, toDateInputValue, calculateTripLength, type PackageData } from "@/lib/types";
-import { documentTotal, transportTotal, additionalTotal, type Rates } from "@/lib/calc";
+import { documentTotal, additionalTotal, type Rates } from "@/lib/calc";
 import { exportPackagePdf, shareToWhatsApp } from "@/lib/export";
 
 type View = "input" | "laporan";
@@ -343,12 +344,11 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                 </Collapsible>
 
                 <Collapsible title="Transportasi">
-                  <GenericItemsTable
+                  <TransportSection
                     items={pkg.transports}
-                    onChange={(transports) => setPkg({ ...pkg, transports: transports as PackageData["transports"] })}
-                    labelPlaceholder="cth. Bus AC Mekkah-Madinah"
-                    addLabel="Tambah Transportasi"
-                    totalFn={(item) => transportTotal(item, participants, rates)}
+                    onChange={(transports) => setPkg({ ...pkg, transports })}
+                    participants={participants}
+                    rates={rates}
                   />
                 </Collapsible>
 
