@@ -58,14 +58,6 @@ export default function FlightSection({
           <input
             type="number"
             min={0}
-            className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-1"
-            placeholder="Qty"
-            value={item.qty}
-            onChange={(e) => update(index, { qty: Number(e.target.value) })}
-          />
-          <input
-            type="number"
-            min={0}
             className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-2"
             placeholder="Harga"
             value={item.price}
@@ -83,14 +75,27 @@ export default function FlightSection({
             ))}
           </select>
           <select
-            className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-2"
+            className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-3"
             value={item.pricingMode}
             onChange={(e) => update(index, { pricingMode: e.target.value as PricingMode })}
           >
-            <option value="TOTAL">Total</option>
-            <option value="PER_PERSON">Per Orang</option>
+            <option value="TOTAL">Total Semua</option>
+            <option value="PER_PERSON">Per Pax</option>
           </select>
-          <div className="text-sm font-medium text-navy-700 sm:col-span-1">
+          {item.pricingMode === "TOTAL" && (
+            <label className="text-sm sm:col-span-3">
+              <span className="mb-1 block text-navy-700 sm:hidden">Jumlah Orang</span>
+              <input
+                type="number"
+                min={0}
+                className="w-full rounded border border-navy-100 px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
+                placeholder="Jumlah Orang"
+                value={item.qty}
+                onChange={(e) => update(index, { qty: Number(e.target.value) })}
+              />
+            </label>
+          )}
+          <div className="text-sm font-medium text-navy-700 sm:col-span-2">
             {flightTotal(item, participants, rates).toLocaleString("en-US")}
           </div>
           <button
