@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Collapsible from "@/components/Collapsible";
 import HotelSection from "@/components/sections/HotelSection";
 import FlightSection from "@/components/sections/FlightSection";
@@ -81,11 +82,23 @@ export default function PackageApp({
   return (
     <div className="min-h-screen bg-gradient-to-b from-gold-50 via-[#fbf7ec] to-navy-50">
       <header className="border-b-4 border-gold-400 bg-gradient-to-r from-navy-950 via-navy-900 to-navy-800 shadow-md">
-        <div className="mx-auto max-w-6xl px-4 py-5">
-          <h1 className="font-display text-2xl font-bold tracking-wide text-gold-300">Teman Umrohmu</h1>
-          <p className="font-display text-lg font-bold tracking-wide text-navy-100">
-            buat paket umroh
-          </p>
+        <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-4">
+          <Image
+            src="/logo-icon.png"
+            alt="Teman Umrohmu"
+            width={471}
+            height={300}
+            className="h-16 w-auto shrink-0"
+            priority
+          />
+          <div className="flex flex-col justify-center gap-0.5">
+            <h1 className="font-display text-2xl leading-tight font-bold tracking-wide text-gold-300">
+              Teman Umrohmu
+            </h1>
+            <p className="font-display text-lg leading-tight font-bold tracking-wide text-navy-100">
+              buat paket umroh
+            </p>
+          </div>
         </div>
       </header>
 
