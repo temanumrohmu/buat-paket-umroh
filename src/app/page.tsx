@@ -1,16 +1,17 @@
 import PackageApp from "@/components/PackageApp";
 import { prisma } from "@/lib/prisma";
-import type { PackageSummaryListItem } from "@/lib/types";
+import { packageInclude } from "@/lib/package-include";
+import type { PackageData } from "@/lib/types";
 
 export const dynamic = "force-dynamic";
 
-async function getInitialList(): Promise<PackageSummaryListItem[]> {
+async function getInitialList(): Promise<PackageData[]> {
   try {
     const packages = await prisma.package.findMany({
       orderBy: { updatedAt: "desc" },
-      select: { id: true, name: true, participants: true, updatedAt: true },
+      include: packageInclude,
     });
-    return packages.map((p) => ({ ...p, updatedAt: p.updatedAt.toISOString() }));
+    return JSON.parse(JSON.stringify(packages));
   } catch {
     return [];
   }

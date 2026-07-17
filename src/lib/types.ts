@@ -69,13 +69,6 @@ export interface PackageData {
   additionals: AdditionalItem[];
 }
 
-export interface PackageSummaryListItem {
-  id: string;
-  name: string;
-  participants: number;
-  updatedAt: string;
-}
-
 export function stripId<T extends { id?: string }>(item: T): Omit<T, "id"> {
   const rest: Partial<T> = { ...item };
   delete rest.id;

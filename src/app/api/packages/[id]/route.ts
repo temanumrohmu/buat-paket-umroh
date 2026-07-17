@@ -1,19 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { packageInclude } from "@/lib/package-include";
 import { stripId, type PackageData } from "@/lib/types";
 
 export async function GET(_req: NextRequest, ctx: RouteContext<"/api/packages/[id]">) {
   const { id } = await ctx.params;
   const pkg = await prisma.package.findUnique({
     where: { id },
-    include: {
-      hotels: true,
-      flights: true,
-      documents: true,
-      transports: true,
-      guides: true,
-      additionals: true,
-    },
+    include: packageInclude,
   });
 
   if (!pkg) {
@@ -72,14 +66,7 @@ export async function PUT(request: NextRequest, ctx: RouteContext<"/api/packages
         create: body.additionals?.map(stripId) ?? [],
       },
     },
-    include: {
-      hotels: true,
-      flights: true,
-      documents: true,
-      transports: true,
-      guides: true,
-      additionals: true,
-    },
+    include: packageInclude,
   });
 
   return NextResponse.json(updated);

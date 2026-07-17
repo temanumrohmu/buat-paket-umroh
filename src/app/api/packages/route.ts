@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { packageInclude } from "@/lib/package-include";
 import { stripId, type PackageData } from "@/lib/types";
 
 export async function GET() {
   const packages = await prisma.package.findMany({
     orderBy: { updatedAt: "desc" },
-    select: { id: true, name: true, participants: true, updatedAt: true },
+    include: packageInclude,
   });
   return NextResponse.json(packages);
 }
@@ -34,14 +35,7 @@ export async function POST(request: NextRequest) {
       guides: { create: body.guides?.map(stripId) ?? [] },
       additionals: { create: body.additionals?.map(stripId) ?? [] },
     },
-    include: {
-      hotels: true,
-      flights: true,
-      documents: true,
-      transports: true,
-      guides: true,
-      additionals: true,
-    },
+    include: packageInclude,
   });
 
   return NextResponse.json(created, { status: 201 });
