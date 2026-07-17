@@ -221,70 +221,77 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                         onChange={(e) => setPkg({ ...pkg, participants: Number(e.target.value) })}
                       />
                     </label>
-                    <label className="text-sm">
-                      <span className="mb-1 block text-navy-700">Mlm Makkah</span>
-                      <input
-                        type="number"
-                        min={0}
-                        className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none"
-                        value={pkg.nightsMakkah}
-                        onChange={(e) => setPkg({ ...pkg, nightsMakkah: Number(e.target.value) })}
-                      />
-                    </label>
-                    <label className="text-sm">
-                      <span className="mb-1 block text-navy-700">Mlm Madinah</span>
-                      <input
-                        type="number"
-                        min={0}
-                        className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none"
-                        value={pkg.nightsMadinah}
-                        onChange={(e) => setPkg({ ...pkg, nightsMadinah: Number(e.target.value) })}
-                      />
-                    </label>
-                    {tripLength.totalNights > 0 && (
-                      <div className="rounded-md border border-gold-300 bg-gold-50 px-3 py-2 text-sm text-navy-800 sm:col-span-2">
-                        <span className="font-semibold">
-                          {tripLength.totalDays} hari / {tripLength.totalNights} malam
-                        </span>
-                        {tripLength.returnDate && (
-                          <span className="text-navy-600">
-                            {" "}
-                            ({pkg.departureDate.split("-").reverse().join("/")} –{" "}
-                            {tripLength.returnDate.split("-").reverse().join("/")})
-                          </span>
-                        )}
-                      </div>
+
+                    <div className="grid grid-cols-3 gap-3 sm:col-span-2">
+                      <label className="text-sm">
+                        <span className="mb-1 block text-navy-700">Mlm Makkah</span>
+                        <input
+                          type="number"
+                          min={0}
+                          className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none"
+                          value={pkg.nightsMakkah}
+                          onChange={(e) => setPkg({ ...pkg, nightsMakkah: Number(e.target.value) })}
+                        />
+                      </label>
+                      <label className="text-sm">
+                        <span className="mb-1 block text-navy-700">Mlm Madinah</span>
+                        <input
+                          type="number"
+                          min={0}
+                          className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none"
+                          value={pkg.nightsMadinah}
+                          onChange={(e) => setPkg({ ...pkg, nightsMadinah: Number(e.target.value) })}
+                        />
+                      </label>
+                      <label className="text-sm">
+                        <span className="mb-1 block text-navy-700">Total</span>
+                        <div className="flex w-full items-center rounded border border-gold-300 bg-gold-50 px-2 py-1.5 font-semibold text-navy-800">
+                          {tripLength.totalNights} malam
+                        </div>
+                      </label>
+                    </div>
+
+                    {tripLength.returnDate && (
+                      <p className="text-xs text-navy-500 sm:col-span-2">
+                        {pkg.departureDate.split("-").reverse().join("/")} –{" "}
+                        {tripLength.returnDate.split("-").reverse().join("/")} ({tripLength.totalDays} hari)
+                      </p>
                     )}
-                    <label className="text-sm">
+
+                    <label className="text-sm sm:col-span-2">
                       <span className="mb-1 block text-navy-700">Margin Keuntungan (%)</span>
                       <input
                         type="number"
                         min={0}
-                        className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none"
+                        className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none sm:w-1/2"
                         value={pkg.marginPercent}
                         onChange={(e) => setPkg({ ...pkg, marginPercent: Number(e.target.value) })}
                       />
                     </label>
-                    <label className="text-sm">
-                      <span className="mb-1 block text-navy-700">Kurs SAR → IDR</span>
-                      <input
-                        type="number"
-                        min={0}
-                        className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none"
-                        value={pkg.exchangeRate}
-                        onChange={(e) => setPkg({ ...pkg, exchangeRate: Number(e.target.value) })}
-                      />
-                    </label>
-                    <label className="text-sm">
-                      <span className="mb-1 block text-navy-700">Kurs USD → IDR</span>
-                      <input
-                        type="number"
-                        min={0}
-                        className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none"
-                        value={pkg.usdRate}
-                        onChange={(e) => setPkg({ ...pkg, usdRate: Number(e.target.value) })}
-                      />
-                    </label>
+
+                    <div className="grid grid-cols-2 gap-3 rounded-md border border-navy-200 bg-navy-50 p-3 sm:col-span-2">
+                      <label className="text-sm">
+                        <span className="mb-1 block font-medium text-navy-800">Kurs SAR → IDR</span>
+                        <input
+                          type="number"
+                          min={0}
+                          className="w-full rounded border border-navy-200 bg-white px-2 py-1.5 focus:border-gold-400 focus:outline-none"
+                          value={pkg.exchangeRate}
+                          onChange={(e) => setPkg({ ...pkg, exchangeRate: Number(e.target.value) })}
+                        />
+                      </label>
+                      <label className="text-sm">
+                        <span className="mb-1 block font-medium text-navy-800">Kurs USD → IDR</span>
+                        <input
+                          type="number"
+                          min={0}
+                          className="w-full rounded border border-navy-200 bg-white px-2 py-1.5 focus:border-gold-400 focus:outline-none"
+                          value={pkg.usdRate}
+                          onChange={(e) => setPkg({ ...pkg, usdRate: Number(e.target.value) })}
+                        />
+                      </label>
+                    </div>
+
                     <label className="text-sm sm:col-span-2">
                       <span className="mb-1 block text-navy-700">Catatan</span>
                       <textarea
