@@ -41,6 +41,9 @@ export async function PUT(request: NextRequest, ctx: RouteContext<"/api/packages
     data: {
       name: body.name,
       participants: body.participants || 1,
+      departureDate: body.departureDate ? new Date(body.departureDate) : null,
+      nightsMakkah: body.nightsMakkah || 0,
+      nightsMadinah: body.nightsMadinah || 0,
       marginPercent: body.marginPercent || 0,
       exchangeRate: body.exchangeRate || 0,
       notes: body.notes || "",

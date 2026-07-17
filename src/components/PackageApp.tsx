@@ -8,7 +8,13 @@ import FlightSection from "@/components/sections/FlightSection";
 import GuideSection from "@/components/sections/GuideSection";
 import GenericItemsTable from "@/components/sections/GenericItemsTable";
 import SummaryPanel from "@/components/SummaryPanel";
-import { emptyPackage, type PackageData, type PackageSummaryListItem } from "@/lib/types";
+import {
+  emptyPackage,
+  toDateInputValue,
+  calculateTripLength,
+  type PackageData,
+  type PackageSummaryListItem,
+} from "@/lib/types";
 import { documentTotal, transportTotal, additionalTotal } from "@/lib/calc";
 import { exportPackagePdf, shareToWhatsApp } from "@/lib/export";
 
@@ -35,7 +41,7 @@ export default function PackageApp({
       return;
     }
     const data = await res.json();
-    setPkg(data);
+    setPkg({ ...data, departureDate: toDateInputValue(data.departureDate) });
   }
 
   function startNew() {
@@ -78,6 +84,7 @@ export default function PackageApp({
   }
 
   const participants = Math.max(1, pkg.participants || 1);
+  const tripLength = calculateTripLength(pkg);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gold-50 via-[#fbf7ec] to-navy-50">
@@ -173,7 +180,16 @@ export default function PackageApp({
                   />
                 </label>
                 <label className="text-sm">
-                  <span className="mb-1 block text-navy-700">Jumlah Peserta</span>
+                  <span className="mb-1 block text-navy-700">Tgl Berangkat</span>
+                  <input
+                    type="date"
+                    className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none"
+                    value={pkg.departureDate}
+                    onChange={(e) => setPkg({ ...pkg, departureDate: e.target.value })}
+                  />
+                </label>
+                <label className="text-sm">
+                  <span className="mb-1 block text-navy-700">Jumlah Pax</span>
                   <input
                     type="number"
                     min={1}
@@ -182,6 +198,39 @@ export default function PackageApp({
                     onChange={(e) => setPkg({ ...pkg, participants: Number(e.target.value) })}
                   />
                 </label>
+                <label className="text-sm">
+                  <span className="mb-1 block text-navy-700">Mlm Makkah</span>
+                  <input
+                    type="number"
+                    min={0}
+                    className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none"
+                    value={pkg.nightsMakkah}
+                    onChange={(e) => setPkg({ ...pkg, nightsMakkah: Number(e.target.value) })}
+                  />
+                </label>
+                <label className="text-sm">
+                  <span className="mb-1 block text-navy-700">Mlm Madinah</span>
+                  <input
+                    type="number"
+                    min={0}
+                    className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none"
+                    value={pkg.nightsMadinah}
+                    onChange={(e) => setPkg({ ...pkg, nightsMadinah: Number(e.target.value) })}
+                  />
+                </label>
+                {tripLength.totalNights > 0 && (
+                  <div className="rounded-md border border-gold-300 bg-gold-50 px-3 py-2 text-sm text-navy-800 sm:col-span-2">
+                    <span className="font-semibold">
+                      {tripLength.totalDays} hari / {tripLength.totalNights} malam
+                    </span>
+                    {tripLength.returnDate && (
+                      <span className="text-navy-600">
+                        {" "}
+                        ({pkg.departureDate.split("-").reverse().join("/")} – {tripLength.returnDate.split("-").reverse().join("/")})
+                      </span>
+                    )}
+                  </div>
+                )}
                 <label className="text-sm">
                   <span className="mb-1 block text-navy-700">Margin Keuntungan (%)</span>
                   <input

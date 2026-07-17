@@ -17,14 +17,17 @@ enum PricingMode {
 }
 
 model Package {
-  id            String   @id @default(cuid())
+  id            String    @id @default(cuid())
   name          String
-  participants  Int      @default(1)
-  marginPercent Float    @default(0)
-  exchangeRate  Float    @default(4300)
+  participants  Int       @default(1)
+  departureDate DateTime?
+  nightsMakkah  Int       @default(0)
+  nightsMadinah Int       @default(0)
+  marginPercent Float     @default(0)
+  exchangeRate  Float     @default(4300)
   notes         String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 
   hotels       Hotel[]
   flights      Flight[]
