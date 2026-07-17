@@ -16,6 +16,12 @@ enum PricingMode {
   PER_PERSON
 }
 
+enum Currency {
+  IDR
+  SAR
+  USD
+}
+
 model Package {
   id            String    @id @default(cuid())
   name          String
@@ -25,6 +31,7 @@ model Package {
   nightsMadinah Int       @default(0)
   marginPercent Float     @default(0)
   exchangeRate  Float     @default(4300)
+  usdRate       Float     @default(15800)
   notes         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
@@ -48,6 +55,7 @@ model Hotel {
   nights     Int         @default(1)
   rooms      Int         @default(1)
   ratePerNight Float     @default(0)
+  currency     Currency    @default(SAR)
   pricingMode  PricingMode @default(TOTAL)
   createdAt  DateTime    @default(now())
 }
@@ -60,6 +68,7 @@ model Flight {
   airline    String?
   qty        Int         @default(1)
   price      Float       @default(0)
+  currency     Currency    @default(SAR)
   pricingMode  PricingMode @default(PER_PERSON)
   createdAt  DateTime    @default(now())
 }
@@ -71,6 +80,7 @@ model DocumentCost {
   label      String      // visa, handling, dll
   qty        Int         @default(1)
   price      Float       @default(0)
+  currency     Currency    @default(SAR)
   pricingMode  PricingMode @default(PER_PERSON)
   createdAt  DateTime    @default(now())
 }
@@ -82,6 +92,7 @@ model Transport {
   label      String
   qty        Int         @default(1)
   price      Float       @default(0)
+  currency     Currency    @default(SAR)
   pricingMode  PricingMode @default(TOTAL)
   createdAt  DateTime    @default(now())
 }
@@ -93,6 +104,7 @@ model GuideFee {
   label      String      @default("Muthawwif")
   days       Int         @default(1)
   rate       Float       @default(0)
+  currency     Currency    @default(SAR)
   pricingMode  PricingMode @default(TOTAL)
   createdAt  DateTime    @default(now())
 }
@@ -104,6 +116,7 @@ model AdditionalService {
   label      String
   qty        Int         @default(1)
   price      Float       @default(0)
+  currency     Currency    @default(SAR)
   pricingMode  PricingMode @default(TOTAL)
   createdAt  DateTime    @default(now())
 }

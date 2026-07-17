@@ -1,12 +1,15 @@
 "use client";
 
-import type { PricingMode } from "@/lib/types";
+import { CURRENCY_LABELS, type Currency, type PricingMode } from "@/lib/types";
+
+const CURRENCIES = Object.keys(CURRENCY_LABELS) as Currency[];
 
 export interface GenericLineItem {
   id?: string;
   label: string;
   qty: number;
   price: number;
+  currency: Currency;
   pricingMode: PricingMode;
 }
 
@@ -34,7 +37,7 @@ export default function GenericItemsTable({
   }
 
   function addItem() {
-    onChange([...items, { label: "", qty: 1, price: 0, pricingMode: "TOTAL" }]);
+    onChange([...items, { label: "", qty: 1, price: 0, currency: "SAR", pricingMode: "TOTAL" }]);
   }
 
   return (
@@ -48,7 +51,7 @@ export default function GenericItemsTable({
           className="grid grid-cols-1 gap-2 rounded-md border border-gold-100 p-3 sm:grid-cols-12 sm:items-center"
         >
           <input
-            className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-4"
+            className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-3"
             placeholder={labelPlaceholder}
             value={item.label}
             onChange={(e) => updateItem(index, { label: e.target.value })}
@@ -56,7 +59,7 @@ export default function GenericItemsTable({
           <input
             type="number"
             min={0}
-            className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-2"
+            className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-1"
             placeholder="Qty"
             value={item.qty}
             onChange={(e) => updateItem(index, { qty: Number(e.target.value) })}
@@ -65,10 +68,21 @@ export default function GenericItemsTable({
             type="number"
             min={0}
             className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-2"
-            placeholder="Harga (SAR)"
+            placeholder="Harga"
             value={item.price}
             onChange={(e) => updateItem(index, { price: Number(e.target.value) })}
           />
+          <select
+            className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-2"
+            value={item.currency}
+            onChange={(e) => updateItem(index, { currency: e.target.value as Currency })}
+          >
+            {CURRENCIES.map((c) => (
+              <option key={c} value={c}>
+                {CURRENCY_LABELS[c]}
+              </option>
+            ))}
+          </select>
           <select
             className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-2"
             value={item.pricingMode}

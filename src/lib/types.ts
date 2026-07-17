@@ -1,5 +1,13 @@
 export type PricingMode = "TOTAL" | "PER_PERSON";
 
+export type Currency = "IDR" | "SAR" | "USD";
+
+export const CURRENCY_LABELS: Record<Currency, string> = {
+  SAR: "SAR",
+  IDR: "IDR",
+  USD: "USD",
+};
+
 export type RoomType = "DOUBLE" | "TRIPLE" | "QUAD" | "QUINT" | "CUSTOM";
 
 export const ROOM_TYPE_LABELS: Record<RoomType, string> = {
@@ -19,6 +27,7 @@ export interface HotelItem {
   nights: number;
   rooms: number;
   ratePerNight: number;
+  currency: Currency;
   pricingMode: PricingMode;
 }
 
@@ -28,6 +37,7 @@ export interface FlightItem {
   airline: string;
   qty: number;
   price: number;
+  currency: Currency;
   pricingMode: PricingMode;
 }
 
@@ -36,6 +46,7 @@ export interface DocumentItem {
   label: string;
   qty: number;
   price: number;
+  currency: Currency;
   pricingMode: PricingMode;
 }
 
@@ -44,6 +55,7 @@ export interface TransportItem {
   label: string;
   qty: number;
   price: number;
+  currency: Currency;
   pricingMode: PricingMode;
 }
 
@@ -52,6 +64,7 @@ export interface GuideItem {
   label: string;
   days: number;
   rate: number;
+  currency: Currency;
   pricingMode: PricingMode;
 }
 
@@ -60,6 +73,7 @@ export interface AdditionalItem {
   label: string;
   qty: number;
   price: number;
+  currency: Currency;
   pricingMode: PricingMode;
 }
 
@@ -72,6 +86,7 @@ export interface PackageData {
   nightsMadinah: number;
   marginPercent: number;
   exchangeRate: number;
+  usdRate: number;
   notes: string;
   hotels: HotelItem[];
   flights: FlightItem[];
@@ -93,6 +108,7 @@ export function toHotelCreateInput(item: HotelItem) {
     nights: item.nights,
     rooms: item.rooms,
     ratePerNight: item.ratePerNight,
+    currency: item.currency,
     pricingMode: item.pricingMode,
   };
 }
@@ -103,6 +119,7 @@ export function toFlightCreateInput(item: FlightItem) {
     airline: item.airline,
     qty: item.qty,
     price: item.price,
+    currency: item.currency,
     pricingMode: item.pricingMode,
   };
 }
@@ -112,6 +129,7 @@ export function toLineItemCreateInput(item: DocumentItem | TransportItem | Addit
     label: item.label,
     qty: item.qty,
     price: item.price,
+    currency: item.currency,
     pricingMode: item.pricingMode,
   };
 }
@@ -121,6 +139,7 @@ export function toGuideCreateInput(item: GuideItem) {
     label: item.label,
     days: item.days,
     rate: item.rate,
+    currency: item.currency,
     pricingMode: item.pricingMode,
   };
 }
@@ -134,6 +153,7 @@ export function emptyPackage(): PackageData {
     nightsMadinah: 0,
     marginPercent: 15,
     exchangeRate: 4300,
+    usdRate: 15800,
     notes: "",
     hotels: [],
     flights: [],

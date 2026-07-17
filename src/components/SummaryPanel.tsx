@@ -1,7 +1,7 @@
 "use client";
 
 import type { PackageData } from "@/lib/types";
-import { calculateHpp, formatIDR, formatSAR } from "@/lib/calc";
+import { calculateHpp, formatIDR, formatSAR, formatUSD } from "@/lib/calc";
 
 const sectionLabels: Record<string, string> = {
   hotels: "Hotel",
@@ -61,8 +61,16 @@ export default function SummaryPanel({ pkg }: { pkg: PackageData }) {
           <span>{formatIDR(hpp.grandTotalIDR)}</span>
         </div>
         <div className="flex justify-between">
+          <span>Grand Total (USD)</span>
+          <span>{formatUSD(hpp.grandTotalUSD)}</span>
+        </div>
+        <div className="flex justify-between">
           <span>Kurs</span>
           <span>1 SAR = {(pkg.exchangeRate || 0).toLocaleString("id-ID")} IDR</span>
+        </div>
+        <div className="flex justify-between">
+          <span>Kurs</span>
+          <span>1 USD = {(pkg.usdRate || 0).toLocaleString("id-ID")} IDR</span>
         </div>
       </div>
     </div>

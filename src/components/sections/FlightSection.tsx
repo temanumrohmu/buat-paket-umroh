@@ -1,16 +1,20 @@
 "use client";
 
-import type { FlightItem, PricingMode } from "@/lib/types";
-import { flightTotal } from "@/lib/calc";
+import { CURRENCY_LABELS, type Currency, type FlightItem, type PricingMode } from "@/lib/types";
+import { flightTotal, type Rates } from "@/lib/calc";
+
+const CURRENCIES = Object.keys(CURRENCY_LABELS) as Currency[];
 
 export default function FlightSection({
   items,
   onChange,
   participants,
+  rates,
 }: {
   items: FlightItem[];
   onChange: (items: FlightItem[]) => void;
   participants: number;
+  rates: Rates;
 }) {
   function update(index: number, patch: Partial<FlightItem>) {
     const next = items.slice();
@@ -25,7 +29,7 @@ export default function FlightSection({
   function add() {
     onChange([
       ...items,
-      { route: "", airline: "", qty: 1, price: 0, pricingMode: "PER_PERSON" },
+      { route: "", airline: "", qty: 1, price: 0, currency: "SAR", pricingMode: "PER_PERSON" },
     ]);
   }
 
@@ -63,10 +67,21 @@ export default function FlightSection({
             type="number"
             min={0}
             className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-2"
-            placeholder="Harga (SAR)"
+            placeholder="Harga"
             value={item.price}
             onChange={(e) => update(index, { price: Number(e.target.value) })}
           />
+          <select
+            className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-2"
+            value={item.currency}
+            onChange={(e) => update(index, { currency: e.target.value as Currency })}
+          >
+            {CURRENCIES.map((c) => (
+              <option key={c} value={c}>
+                {CURRENCY_LABELS[c]}
+              </option>
+            ))}
+          </select>
           <select
             className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-2"
             value={item.pricingMode}
@@ -76,7 +91,7 @@ export default function FlightSection({
             <option value="PER_PERSON">Per Orang</option>
           </select>
           <div className="text-sm font-medium text-navy-700 sm:col-span-1">
-            {flightTotal(item, participants).toLocaleString("en-US")}
+            {flightTotal(item, participants, rates).toLocaleString("en-US")}
           </div>
           <button
             type="button"

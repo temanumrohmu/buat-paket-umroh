@@ -1,19 +1,22 @@
 "use client";
 
-import { ROOM_TYPE_LABELS, type HotelItem, type RoomType } from "@/lib/types";
-import { hotelTotal } from "@/lib/calc";
+import { CURRENCY_LABELS, ROOM_TYPE_LABELS, type Currency, type HotelItem, type RoomType } from "@/lib/types";
+import { hotelTotal, type Rates } from "@/lib/calc";
 
 const ROOM_TYPES = Object.keys(ROOM_TYPE_LABELS) as RoomType[];
+const CURRENCIES = Object.keys(CURRENCY_LABELS) as Currency[];
 const STAR_OPTIONS = [1, 2, 3, 4, 5];
 
 export default function HotelSection({
   items,
   onChange,
   city,
+  rates,
 }: {
   items: HotelItem[];
   onChange: (items: HotelItem[]) => void;
   city: string;
+  rates: Rates;
 }) {
   const cityRows = items
     .map((item, idx) => ({ item, idx }))
@@ -40,6 +43,7 @@ export default function HotelSection({
         nights: 1,
         rooms: 1,
         ratePerNight: 0,
+        currency: "SAR",
         pricingMode: "TOTAL",
       },
     ]);
@@ -123,7 +127,7 @@ export default function HotelSection({
               />
             </label>
             <label className="text-sm">
-              <span className="mb-1 block text-navy-700">Harga/Kamar/Malam (SAR)</span>
+              <span className="mb-1 block text-navy-700">Harga/Kamar/Malam</span>
               <input
                 type="number"
                 min={0}
@@ -132,9 +136,23 @@ export default function HotelSection({
                 onChange={(e) => update(idx, { ratePerNight: Number(e.target.value) })}
               />
             </label>
+            <label className="text-sm">
+              <span className="mb-1 block text-navy-700">Mata Uang</span>
+              <select
+                className="w-full rounded border border-navy-100 px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
+                value={item.currency}
+                onChange={(e) => update(idx, { currency: e.target.value as Currency })}
+              >
+                {CURRENCIES.map((c) => (
+                  <option key={c} value={c}>
+                    {CURRENCY_LABELS[c]}
+                  </option>
+                ))}
+              </select>
+            </label>
           </div>
           <div className="mt-2 text-right text-sm font-semibold text-navy-800">
-            Subtotal: {hotelTotal(item).toLocaleString("en-US")} SAR
+            Subtotal: {hotelTotal(item, rates).toLocaleString("en-US")} SAR
           </div>
         </div>
       ))}

@@ -33,6 +33,7 @@ export async function POST(request: NextRequest) {
       nightsMadinah: body.nightsMadinah || 0,
       marginPercent: body.marginPercent || 0,
       exchangeRate: body.exchangeRate || 0,
+      usdRate: body.usdRate || 0,
       notes: body.notes || "",
       hotels: { create: body.hotels?.map(toHotelCreateInput) ?? [] },
       flights: { create: body.flights?.map(toFlightCreateInput) ?? [] },

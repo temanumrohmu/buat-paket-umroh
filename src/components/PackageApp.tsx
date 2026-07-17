@@ -10,7 +10,7 @@ import GenericItemsTable from "@/components/sections/GenericItemsTable";
 import SummaryPanel from "@/components/SummaryPanel";
 import LaporanView from "@/components/LaporanView";
 import { emptyPackage, toDateInputValue, calculateTripLength, type PackageData } from "@/lib/types";
-import { documentTotal, transportTotal, additionalTotal } from "@/lib/calc";
+import { documentTotal, transportTotal, additionalTotal, type Rates } from "@/lib/calc";
 import { exportPackagePdf, shareToWhatsApp } from "@/lib/export";
 
 type View = "input" | "laporan";
@@ -80,6 +80,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
 
   const participants = Math.max(1, pkg.participants || 1);
   const tripLength = calculateTripLength(pkg);
+  const rates: Rates = { exchangeRate: pkg.exchangeRate || 0, usdRate: pkg.usdRate || 0 };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gold-50 via-[#fbf7ec] to-navy-50">
@@ -274,6 +275,16 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                         onChange={(e) => setPkg({ ...pkg, exchangeRate: Number(e.target.value) })}
                       />
                     </label>
+                    <label className="text-sm">
+                      <span className="mb-1 block text-navy-700">Kurs USD → IDR</span>
+                      <input
+                        type="number"
+                        min={0}
+                        className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none"
+                        value={pkg.usdRate}
+                        onChange={(e) => setPkg({ ...pkg, usdRate: Number(e.target.value) })}
+                      />
+                    </label>
                     <label className="text-sm sm:col-span-2">
                       <span className="mb-1 block text-navy-700">Catatan</span>
                       <textarea
@@ -291,6 +302,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                     items={pkg.hotels}
                     onChange={(hotels) => setPkg({ ...pkg, hotels })}
                     city="Mekkah"
+                    rates={rates}
                   />
                 </Collapsible>
 
@@ -299,6 +311,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                     items={pkg.hotels}
                     onChange={(hotels) => setPkg({ ...pkg, hotels })}
                     city="Madinah"
+                    rates={rates}
                   />
                 </Collapsible>
 
@@ -307,6 +320,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                     items={pkg.flights}
                     onChange={(flights) => setPkg({ ...pkg, flights })}
                     participants={participants}
+                    rates={rates}
                   />
                 </Collapsible>
 
@@ -316,7 +330,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                     onChange={(documents) => setPkg({ ...pkg, documents: documents as PackageData["documents"] })}
                     labelPlaceholder="cth. Visa Umrah"
                     addLabel="Tambah Dokumen"
-                    totalFn={(item) => documentTotal(item, participants)}
+                    totalFn={(item) => documentTotal(item, participants, rates)}
                   />
                 </Collapsible>
 
@@ -326,7 +340,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                     onChange={(transports) => setPkg({ ...pkg, transports: transports as PackageData["transports"] })}
                     labelPlaceholder="cth. Bus AC Mekkah-Madinah"
                     addLabel="Tambah Transportasi"
-                    totalFn={(item) => transportTotal(item, participants)}
+                    totalFn={(item) => transportTotal(item, participants, rates)}
                   />
                 </Collapsible>
 
@@ -335,6 +349,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                     items={pkg.guides}
                     onChange={(guides) => setPkg({ ...pkg, guides })}
                     participants={participants}
+                    rates={rates}
                   />
                 </Collapsible>
 
@@ -344,7 +359,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                     onChange={(additionals) => setPkg({ ...pkg, additionals: additionals as PackageData["additionals"] })}
                     labelPlaceholder="cth. Ziarah, Air Zamzam"
                     addLabel="Tambah Biaya"
-                    totalFn={(item) => additionalTotal(item, participants)}
+                    totalFn={(item) => additionalTotal(item, participants, rates)}
                   />
                 </Collapsible>
               </div>

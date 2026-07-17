@@ -46,6 +46,7 @@ export async function PUT(request: NextRequest, ctx: RouteContext<"/api/packages
       nightsMadinah: body.nightsMadinah || 0,
       marginPercent: body.marginPercent || 0,
       exchangeRate: body.exchangeRate || 0,
+      usdRate: body.usdRate || 0,
       notes: body.notes || "",
       hotels: {
         deleteMany: {},

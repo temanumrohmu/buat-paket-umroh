@@ -1,16 +1,20 @@
 "use client";
 
-import type { GuideItem, PricingMode } from "@/lib/types";
-import { guideTotal } from "@/lib/calc";
+import { CURRENCY_LABELS, type Currency, type GuideItem, type PricingMode } from "@/lib/types";
+import { guideTotal, type Rates } from "@/lib/calc";
+
+const CURRENCIES = Object.keys(CURRENCY_LABELS) as Currency[];
 
 export default function GuideSection({
   items,
   onChange,
   participants,
+  rates,
 }: {
   items: GuideItem[];
   onChange: (items: GuideItem[]) => void;
   participants: number;
+  rates: Rates;
 }) {
   function update(index: number, patch: Partial<GuideItem>) {
     const next = items.slice();
@@ -23,7 +27,7 @@ export default function GuideSection({
   }
 
   function add() {
-    onChange([...items, { label: "Muthawwif", days: 1, rate: 0, pricingMode: "TOTAL" }]);
+    onChange([...items, { label: "Muthawwif", days: 1, rate: 0, currency: "SAR", pricingMode: "TOTAL" }]);
   }
 
   return (
@@ -54,10 +58,21 @@ export default function GuideSection({
             type="number"
             min={0}
             className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-2"
-            placeholder="Rate/hari (SAR)"
+            placeholder="Rate/hari"
             value={item.rate}
             onChange={(e) => update(index, { rate: Number(e.target.value) })}
           />
+          <select
+            className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-2"
+            value={item.currency}
+            onChange={(e) => update(index, { currency: e.target.value as Currency })}
+          >
+            {CURRENCIES.map((c) => (
+              <option key={c} value={c}>
+                {CURRENCY_LABELS[c]}
+              </option>
+            ))}
+          </select>
           <select
             className="rounded border border-navy-100 px-2 py-1.5 text-sm sm:col-span-2"
             value={item.pricingMode}
@@ -67,7 +82,7 @@ export default function GuideSection({
             <option value="PER_PERSON">Per Orang</option>
           </select>
           <div className="text-sm font-medium text-navy-700 sm:col-span-1">
-            {guideTotal(item, participants).toLocaleString("en-US")}
+            {guideTotal(item, participants, rates).toLocaleString("en-US")}
           </div>
           <button
             type="button"
