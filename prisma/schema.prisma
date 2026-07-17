@@ -43,6 +43,8 @@ model Hotel {
   packageId  String
   city       String      // Mekkah | Madinah
   name       String
+  stars      Int         @default(0)
+  roomType   String      @default("DOUBLE")
   nights     Int         @default(1)
   rooms      Int         @default(1)
   ratePerNight Float     @default(0)

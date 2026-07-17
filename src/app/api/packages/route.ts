@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { packageInclude } from "@/lib/package-include";
-import { stripId, type PackageData } from "@/lib/types";
+import {
+  toHotelCreateInput,
+  toFlightCreateInput,
+  toLineItemCreateInput,
+  toGuideCreateInput,
+  type PackageData,
+} from "@/lib/types";
 
 export async function GET() {
   const packages = await prisma.package.findMany({
@@ -28,12 +34,12 @@ export async function POST(request: NextRequest) {
       marginPercent: body.marginPercent || 0,
       exchangeRate: body.exchangeRate || 0,
       notes: body.notes || "",
-      hotels: { create: body.hotels?.map(stripId) ?? [] },
-      flights: { create: body.flights?.map(stripId) ?? [] },
-      documents: { create: body.documents?.map(stripId) ?? [] },
-      transports: { create: body.transports?.map(stripId) ?? [] },
-      guides: { create: body.guides?.map(stripId) ?? [] },
-      additionals: { create: body.additionals?.map(stripId) ?? [] },
+      hotels: { create: body.hotels?.map(toHotelCreateInput) ?? [] },
+      flights: { create: body.flights?.map(toFlightCreateInput) ?? [] },
+      documents: { create: body.documents?.map(toLineItemCreateInput) ?? [] },
+      transports: { create: body.transports?.map(toLineItemCreateInput) ?? [] },
+      guides: { create: body.guides?.map(toGuideCreateInput) ?? [] },
+      additionals: { create: body.additionals?.map(toLineItemCreateInput) ?? [] },
     },
     include: packageInclude,
   });

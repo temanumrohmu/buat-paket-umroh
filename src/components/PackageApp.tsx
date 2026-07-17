@@ -286,11 +286,19 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                   </div>
                 </div>
 
-                <Collapsible title="Hotel" subtitle="Mekkah & Madinah">
+                <Collapsible title="Hotel Makkah">
                   <HotelSection
                     items={pkg.hotels}
                     onChange={(hotels) => setPkg({ ...pkg, hotels })}
-                    participants={participants}
+                    city="Mekkah"
+                  />
+                </Collapsible>
+
+                <Collapsible title="Hotel Madinah">
+                  <HotelSection
+                    items={pkg.hotels}
+                    onChange={(hotels) => setPkg({ ...pkg, hotels })}
+                    city="Madinah"
                   />
                 </Collapsible>
 

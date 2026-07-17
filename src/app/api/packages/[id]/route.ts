@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { packageInclude } from "@/lib/package-include";
-import { stripId, type PackageData } from "@/lib/types";
+import {
+  toHotelCreateInput,
+  toFlightCreateInput,
+  toLineItemCreateInput,
+  toGuideCreateInput,
+  type PackageData,
+} from "@/lib/types";
 
 export async function GET(_req: NextRequest, ctx: RouteContext<"/api/packages/[id]">) {
   const { id } = await ctx.params;
@@ -43,27 +49,27 @@ export async function PUT(request: NextRequest, ctx: RouteContext<"/api/packages
       notes: body.notes || "",
       hotels: {
         deleteMany: {},
-        create: body.hotels?.map(stripId) ?? [],
+        create: body.hotels?.map(toHotelCreateInput) ?? [],
       },
       flights: {
         deleteMany: {},
-        create: body.flights?.map(stripId) ?? [],
+        create: body.flights?.map(toFlightCreateInput) ?? [],
       },
       documents: {
         deleteMany: {},
-        create: body.documents?.map(stripId) ?? [],
+        create: body.documents?.map(toLineItemCreateInput) ?? [],
       },
       transports: {
         deleteMany: {},
-        create: body.transports?.map(stripId) ?? [],
+        create: body.transports?.map(toLineItemCreateInput) ?? [],
       },
       guides: {
         deleteMany: {},
-        create: body.guides?.map(stripId) ?? [],
+        create: body.guides?.map(toGuideCreateInput) ?? [],
       },
       additionals: {
         deleteMany: {},
-        create: body.additionals?.map(stripId) ?? [],
+        create: body.additionals?.map(toLineItemCreateInput) ?? [],
       },
     },
     include: packageInclude,

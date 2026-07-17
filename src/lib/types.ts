@@ -1,9 +1,21 @@
 export type PricingMode = "TOTAL" | "PER_PERSON";
 
+export type RoomType = "DOUBLE" | "TRIPLE" | "QUAD" | "QUINT" | "CUSTOM";
+
+export const ROOM_TYPE_LABELS: Record<RoomType, string> = {
+  DOUBLE: "Double (2)",
+  TRIPLE: "Triple (3)",
+  QUAD: "Quad (4)",
+  QUINT: "Quint (5)",
+  CUSTOM: "Custom / Apartemen",
+};
+
 export interface HotelItem {
   id?: string;
   city: string;
   name: string;
+  stars: number;
+  roomType: RoomType;
   nights: number;
   rooms: number;
   ratePerNight: number;
@@ -69,10 +81,48 @@ export interface PackageData {
   additionals: AdditionalItem[];
 }
 
-export function stripId<T extends { id?: string }>(item: T): Omit<T, "id"> {
-  const rest: Partial<T> = { ...item };
-  delete rest.id;
-  return rest as Omit<T, "id">;
+// Nested items coming back from the API carry server-only fields (packageId,
+// createdAt) that Prisma's nested `create` rejects. These pick only the
+// fields a client is allowed to write.
+export function toHotelCreateInput(item: HotelItem) {
+  return {
+    city: item.city,
+    name: item.name,
+    stars: item.stars,
+    roomType: item.roomType,
+    nights: item.nights,
+    rooms: item.rooms,
+    ratePerNight: item.ratePerNight,
+    pricingMode: item.pricingMode,
+  };
+}
+
+export function toFlightCreateInput(item: FlightItem) {
+  return {
+    route: item.route,
+    airline: item.airline,
+    qty: item.qty,
+    price: item.price,
+    pricingMode: item.pricingMode,
+  };
+}
+
+export function toLineItemCreateInput(item: DocumentItem | TransportItem | AdditionalItem) {
+  return {
+    label: item.label,
+    qty: item.qty,
+    price: item.price,
+    pricingMode: item.pricingMode,
+  };
+}
+
+export function toGuideCreateInput(item: GuideItem) {
+  return {
+    label: item.label,
+    days: item.days,
+    rate: item.rate,
+    pricingMode: item.pricingMode,
+  };
 }
 
 export function emptyPackage(): PackageData {

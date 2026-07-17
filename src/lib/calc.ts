@@ -8,11 +8,8 @@ import type {
   AdditionalItem,
 } from "./types";
 
-export function hotelTotal(item: HotelItem, participants: number): number {
-  const base = item.ratePerNight * item.nights;
-  return item.pricingMode === "TOTAL"
-    ? base * item.rooms
-    : base * participants;
+export function hotelTotal(item: HotelItem): number {
+  return item.ratePerNight * item.nights * item.rooms;
 }
 
 export function flightTotal(item: FlightItem, participants: number): number {
@@ -69,7 +66,7 @@ export function calculateHpp(pkg: PackageData): HppResult {
   const participants = Math.max(1, pkg.participants || 1);
 
   const sections: SectionSubtotal = {
-    hotels: pkg.hotels.reduce((sum, i) => sum + hotelTotal(i, participants), 0),
+    hotels: pkg.hotels.reduce((sum, i) => sum + hotelTotal(i), 0),
     flights: pkg.flights.reduce((sum, i) => sum + flightTotal(i, participants), 0),
     documents: pkg.documents.reduce((sum, i) => sum + documentTotal(i, participants), 0),
     transports: pkg.transports.reduce((sum, i) => sum + transportTotal(i, participants), 0),
