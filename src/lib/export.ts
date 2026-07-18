@@ -7,7 +7,7 @@ const sectionLabels: Record<string, string> = {
   documents: "Visa & Dokumen",
   transports: "Transportasi",
   guides: "Muthawwif / Guide",
-  additionals: "Biaya Tambahan",
+  additionals: "Item Tambahan",
 };
 
 export function buildSummaryLines(pkg: PackageData): string[] {

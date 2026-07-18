@@ -8,10 +8,11 @@ import FlightSection from "@/components/sections/FlightSection";
 import GuideSection from "@/components/sections/GuideSection";
 import GenericItemsTable from "@/components/sections/GenericItemsTable";
 import TransportSection from "@/components/sections/TransportSection";
+import AdditionalSection from "@/components/sections/AdditionalSection";
 import SummaryPanel from "@/components/SummaryPanel";
 import LaporanView from "@/components/LaporanView";
 import { emptyPackage, toDateInputValue, calculateTripLength, type PackageData } from "@/lib/types";
-import { documentTotal, additionalTotal, type Rates } from "@/lib/calc";
+import { documentTotal, type Rates } from "@/lib/calc";
 import { exportPackagePdf, shareToWhatsApp } from "@/lib/export";
 
 type View = "input" | "laporan";
@@ -361,13 +362,16 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                   />
                 </Collapsible>
 
-                <Collapsible title="Biaya Tambahan" defaultOpen={false}>
-                  <GenericItemsTable
+                <Collapsible
+                  title="Item Tambahan"
+                  badge={`${pkg.additionals.length} item`}
+                  defaultOpen={false}
+                >
+                  <AdditionalSection
                     items={pkg.additionals}
-                    onChange={(additionals) => setPkg({ ...pkg, additionals: additionals as PackageData["additionals"] })}
-                    labelPlaceholder="cth. Ziarah, Air Zamzam"
-                    addLabel="Tambah Biaya"
-                    totalFn={(item) => additionalTotal(item, participants, rates)}
+                    onChange={(additionals) => setPkg({ ...pkg, additionals })}
+                    participants={participants}
+                    rates={rates}
                   />
                 </Collapsible>
               </div>
