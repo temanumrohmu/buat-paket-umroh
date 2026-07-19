@@ -87,7 +87,7 @@ export default function HotelSection({
               >
                 {STAR_OPTIONS.map((s) => (
                   <option key={s} value={s}>
-                    {"★".repeat(s)} ({s})
+                    {"⭐".repeat(s)} ({s})
                   </option>
                 ))}
               </select>
