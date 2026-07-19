@@ -82,6 +82,16 @@ export interface AdditionalItem {
   pricingMode: PricingMode;
 }
 
+export interface HandlingItem {
+  id?: string;
+  category: string;
+  presetKey?: string | null;
+  label: string;
+  price: number;
+  currency: Currency;
+  pricingMode: PricingMode;
+}
+
 export interface PackageData {
   id?: string;
   name: string;
@@ -99,6 +109,7 @@ export interface PackageData {
   transports: TransportItem[];
   guides: GuideItem[];
   additionals: AdditionalItem[];
+  handlings: HandlingItem[];
 }
 
 // Nested items coming back from the API carry server-only fields (packageId,
@@ -164,6 +175,17 @@ export function toGuideCreateInput(item: GuideItem) {
   };
 }
 
+export function toHandlingCreateInput(item: HandlingItem) {
+  return {
+    category: item.category,
+    presetKey: item.presetKey ?? null,
+    label: item.label,
+    price: item.price,
+    currency: item.currency,
+    pricingMode: item.pricingMode,
+  };
+}
+
 export function emptyPackage(): PackageData {
   return {
     name: "",
@@ -181,6 +203,7 @@ export function emptyPackage(): PackageData {
     transports: [],
     guides: [],
     additionals: [],
+    handlings: [],
   };
 }
 

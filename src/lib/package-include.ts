@@ -5,4 +5,5 @@ export const packageInclude = {
   transports: true,
   guides: true,
   additionals: true,
+  handlings: true,
 } as const;

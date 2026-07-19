@@ -9,6 +9,7 @@ import GuideSection from "@/components/sections/GuideSection";
 import GenericItemsTable from "@/components/sections/GenericItemsTable";
 import TransportSection from "@/components/sections/TransportSection";
 import AdditionalSection from "@/components/sections/AdditionalSection";
+import HandlingSection from "@/components/sections/HandlingSection";
 import SummaryPanel from "@/components/SummaryPanel";
 import LaporanView from "@/components/LaporanView";
 import { emptyPackage, toDateInputValue, calculateTripLength, type PackageData } from "@/lib/types";
@@ -348,6 +349,15 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                   <TransportSection
                     items={pkg.transports}
                     onChange={(transports) => setPkg({ ...pkg, transports })}
+                    participants={participants}
+                    rates={rates}
+                  />
+                </Collapsible>
+
+                <Collapsible title="Handling">
+                  <HandlingSection
+                    items={pkg.handlings}
+                    onChange={(handlings) => setPkg({ ...pkg, handlings })}
                     participants={participants}
                     rates={rates}
                   />

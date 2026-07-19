@@ -6,6 +6,7 @@ const sectionLabels: Record<string, string> = {
   flights: "Tiket Pesawat",
   documents: "Visa & Dokumen",
   transports: "Transportasi",
+  handlings: "Handling",
   guides: "Muthawwif / Guide",
   additionals: "Item Tambahan",
 };
