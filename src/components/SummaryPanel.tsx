@@ -1,7 +1,7 @@
 "use client";
 
 import type { PackageData } from "@/lib/types";
-import { calculateHpp, formatIDR, formatSAR, formatUSD } from "@/lib/calc";
+import { calculateHpp, formatIDR, formatSAR } from "@/lib/calc";
 
 const sectionLabels: Record<string, string> = {
   hotels: "Hotel",
@@ -12,66 +12,96 @@ const sectionLabels: Record<string, string> = {
   additionals: "Item Tambahan",
 };
 
-export default function SummaryPanel({ pkg }: { pkg: PackageData }) {
+function StatCard({
+  label,
+  value,
+  subtitle,
+  highlight = false,
+}: {
+  label: string;
+  value: string;
+  subtitle: string;
+  highlight?: boolean;
+}) {
+  return (
+    <div
+      className={`rounded-md bg-navy-800 p-3 ${highlight ? "border border-gold-400" : "border border-navy-700"}`}
+    >
+      <div className="text-[10px] font-semibold tracking-wide text-navy-300 uppercase">{label}</div>
+      <div className={`text-lg font-bold ${highlight ? "text-gold-300" : "text-white"}`}>{value}</div>
+      <div className="text-[11px] text-navy-400">{subtitle}</div>
+    </div>
+  );
+}
+
+export default function SummaryPanel({
+  pkg,
+  onSave,
+  onOpenLaporan,
+  saving,
+}: {
+  pkg: PackageData;
+  onSave: () => void;
+  onOpenLaporan: () => void;
+  saving: boolean;
+}) {
   const hpp = calculateHpp(pkg);
+  const participants = Math.max(1, pkg.participants || 1);
 
   return (
-    <div className="sticky top-4 rounded-lg border border-gold-300 bg-white p-5 shadow-md">
-      <h3 className="mb-4 font-semibold text-navy-900">
-        <span className="mr-1.5 text-gold-500">◆</span>Ringkasan HPP
+    <div className="sticky top-4 rounded-lg bg-navy-900 p-4 shadow-lg">
+      <h3 className="mb-3 flex items-center gap-1.5 text-sm font-bold tracking-wide text-gold-300 uppercase">
+        <span>📊</span>Ringkasan HPP
       </h3>
 
       <div className="space-y-1.5 text-sm">
         {Object.entries(hpp.sections).map(([key, value]) => (
-          <div key={key} className="flex justify-between text-navy-700">
+          <div key={key} className="flex justify-between text-navy-200">
             <span>{sectionLabels[key]}</span>
             <span>{formatSAR(value)}</span>
           </div>
         ))}
       </div>
 
-      <div className="my-3 border-t border-gold-100" />
+      <div className="my-3 border-t border-navy-700" />
 
-      <div className="space-y-1.5 text-sm">
-        <div className="flex justify-between text-navy-700">
-          <span>Subtotal</span>
-          <span>{formatSAR(hpp.subtotalSAR)}</span>
-        </div>
-        <div className="flex justify-between text-navy-700">
-          <span>Margin ({pkg.marginPercent || 0}%)</span>
-          <span>{formatSAR(hpp.marginSAR)}</span>
-        </div>
-        <div className="flex justify-between font-semibold text-navy-900">
-          <span>Grand Total</span>
-          <span>{formatSAR(hpp.grandTotalSAR)}</span>
-        </div>
+      <div className="grid grid-cols-2 gap-2">
+        <StatCard label="Subtotal" value={formatSAR(hpp.subtotalSAR)} subtitle="Sebelum jasa" />
+        <StatCard
+          label="Jasa Kami"
+          value={formatSAR(hpp.marginSAR)}
+          subtitle={`${pkg.marginPercent || 0}%`}
+        />
+        <StatCard
+          label="Per Jamaah"
+          value={formatSAR(hpp.perParticipantSAR)}
+          subtitle={formatIDR(hpp.perParticipantIDR)}
+          highlight
+        />
+        <StatCard
+          label="Total Semua"
+          value={formatSAR(hpp.grandTotalSAR)}
+          subtitle={`${formatIDR(hpp.grandTotalIDR)} (${participants} pax)`}
+          highlight
+        />
       </div>
 
-      <div className="my-3 border-t border-gold-100" />
-
-      <div className="space-y-1 rounded-md border border-gold-300 bg-gradient-to-br from-gold-100 to-gold-50 p-3">
-        <p className="text-xs font-medium text-gold-700">Per Peserta ({pkg.participants || 1} orang)</p>
-        <p className="text-lg font-bold text-navy-900">{formatSAR(hpp.perParticipantSAR)}</p>
-        <p className="text-sm font-semibold text-gold-700">{formatIDR(hpp.perParticipantIDR)}</p>
-      </div>
-
-      <div className="mt-3 space-y-1 text-xs text-navy-500">
-        <div className="flex justify-between">
-          <span>Grand Total (IDR)</span>
-          <span>{formatIDR(hpp.grandTotalIDR)}</span>
-        </div>
-        <div className="flex justify-between">
-          <span>Grand Total (USD)</span>
-          <span>{formatUSD(hpp.grandTotalUSD)}</span>
-        </div>
-        <div className="flex justify-between">
-          <span>Kurs</span>
-          <span>1 SAR = {(pkg.exchangeRate || 0).toLocaleString("id-ID")} IDR</span>
-        </div>
-        <div className="flex justify-between">
-          <span>Kurs</span>
-          <span>1 USD = {(pkg.usdRate || 0).toLocaleString("id-ID")} IDR</span>
-        </div>
+      <div className="mt-3 flex gap-2">
+        <button
+          type="button"
+          onClick={onOpenLaporan}
+          className="flex-1 rounded-md border border-navy-600 px-3 py-2 text-sm font-medium text-white hover:bg-navy-800"
+        >
+          📄 Laporan
+        </button>
+        <button
+          type="button"
+          onClick={onSave}
+          disabled={saving}
+          className="flex-1 rounded-md bg-gold-500 px-3 py-2 text-sm font-semibold text-navy-950 hover:bg-gold-600 disabled:opacity-50"
+        >
+          💾 {saving ? "Menyimpan..." : "Simpan"}
+        </button>
       </div>
     </div>
   );

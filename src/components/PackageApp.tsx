@@ -377,7 +377,12 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
               </div>
 
               <div>
-                <SummaryPanel pkg={pkg} />
+                <SummaryPanel
+                  pkg={pkg}
+                  onSave={savePackage}
+                  onOpenLaporan={() => setView("laporan")}
+                  saving={saving}
+                />
               </div>
             </div>
           </>
