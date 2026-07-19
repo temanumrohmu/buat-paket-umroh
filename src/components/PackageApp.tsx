@@ -206,15 +206,23 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                         onChange={(e) => setPkg({ ...pkg, name: e.target.value })}
                       />
                     </label>
-                    <label className="text-sm">
-                      <span className="mb-1 block text-navy-700">Tgl Berangkat</span>
-                      <input
-                        type="date"
-                        className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none"
-                        value={pkg.departureDate}
-                        onChange={(e) => setPkg({ ...pkg, departureDate: e.target.value })}
-                      />
-                    </label>
+                    <div className="grid grid-cols-2 gap-3">
+                      <label className="text-sm">
+                        <span className="mb-1 block text-navy-700">Tgl Berangkat</span>
+                        <input
+                          type="date"
+                          className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none"
+                          value={pkg.departureDate}
+                          onChange={(e) => setPkg({ ...pkg, departureDate: e.target.value })}
+                        />
+                      </label>
+                      <label className="text-sm">
+                        <span className="mb-1 block text-navy-700">Tgl Pulang</span>
+                        <div className="flex w-full items-center rounded border border-gold-300 bg-gold-50 px-2 py-1.5 font-semibold text-navy-800">
+                          {tripLength.returnDate ? tripLength.returnDate.split("-").reverse().join("/") : "-"}
+                        </div>
+                      </label>
+                    </div>
                     <label className="text-sm">
                       <span className="mb-1 block text-navy-700">Jumlah Pax</span>
                       <input
@@ -260,8 +268,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
 
                     {tripLength.returnDate && (
                       <p className="text-xs text-navy-500 sm:col-span-2">
-                        {pkg.departureDate.split("-").reverse().join("/")} –{" "}
-                        {tripLength.returnDate.split("-").reverse().join("/")} ({tripLength.totalDays} hari)
+                        Total {tripLength.totalDays} hari
                       </p>
                     )}
 
