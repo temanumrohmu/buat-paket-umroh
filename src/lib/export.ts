@@ -4,7 +4,7 @@ import { calculateHpp, formatIDR, formatSAR } from "./calc";
 const sectionLabels: Record<string, string> = {
   hotels: "Hotel",
   flights: "Tiket Pesawat",
-  documents: "Visa & Dokumen",
+  documents: "Dokumen & Visa",
   transports: "Transportasi",
   handlings: "Handling",
   guides: "Muthawwif / Guide",

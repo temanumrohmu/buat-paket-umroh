@@ -43,7 +43,9 @@ export interface FlightItem {
 
 export interface DocumentItem {
   id?: string;
+  presetKey?: string | null;
   label: string;
+  notes: string;
   qty: number;
   price: number;
   currency: Currency;
@@ -140,9 +142,21 @@ export function toFlightCreateInput(item: FlightItem) {
   };
 }
 
-export function toLineItemCreateInput(item: DocumentItem | AdditionalItem) {
+export function toLineItemCreateInput(item: AdditionalItem) {
   return {
     label: item.label,
+    qty: item.qty,
+    price: item.price,
+    currency: item.currency,
+    pricingMode: item.pricingMode,
+  };
+}
+
+export function toDocumentCreateInput(item: DocumentItem) {
+  return {
+    presetKey: item.presetKey ?? null,
+    label: item.label,
+    notes: item.notes,
     qty: item.qty,
     price: item.price,
     currency: item.currency,

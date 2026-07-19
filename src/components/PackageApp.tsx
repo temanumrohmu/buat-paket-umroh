@@ -6,14 +6,14 @@ import Collapsible from "@/components/Collapsible";
 import HotelSection from "@/components/sections/HotelSection";
 import FlightSection from "@/components/sections/FlightSection";
 import GuideSection from "@/components/sections/GuideSection";
-import GenericItemsTable from "@/components/sections/GenericItemsTable";
+import DocumentSection from "@/components/sections/DocumentSection";
 import TransportSection from "@/components/sections/TransportSection";
 import AdditionalSection from "@/components/sections/AdditionalSection";
 import HandlingSection from "@/components/sections/HandlingSection";
 import SummaryPanel from "@/components/SummaryPanel";
 import LaporanView from "@/components/LaporanView";
 import { emptyPackage, toDateInputValue, calculateTripLength, type PackageData } from "@/lib/types";
-import { documentTotal, type Rates } from "@/lib/calc";
+import type { Rates } from "@/lib/calc";
 import { exportPackagePdf, shareToWhatsApp } from "@/lib/export";
 
 type View = "input" | "laporan";
@@ -334,14 +334,12 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                   />
                 </Collapsible>
 
-                <Collapsible title="Visa & Dokumen">
-                  <GenericItemsTable
+                <Collapsible title="Dokumen & Visa">
+                  <DocumentSection
                     items={pkg.documents}
-                    onChange={(documents) => setPkg({ ...pkg, documents: documents as PackageData["documents"] })}
-                    labelPlaceholder="cth. Visa Umrah"
-                    addLabel="Tambah Dokumen"
-                    totalFn={(item) => documentTotal(item, participants, rates)}
-                    fixedPricingMode="PER_PERSON"
+                    onChange={(documents) => setPkg({ ...pkg, documents })}
+                    participants={participants}
+                    rates={rates}
                   />
                 </Collapsible>
 
