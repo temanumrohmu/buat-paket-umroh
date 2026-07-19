@@ -358,7 +358,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                   />
                 </Collapsible>
 
-                <Collapsible title="🧳 Handling">
+                <Collapsible title="🤝 Handling">
                   <HandlingSection
                     items={pkg.handlings}
                     onChange={(handlings) => setPkg({ ...pkg, handlings })}
@@ -376,7 +376,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                   />
                 </Collapsible>
 
-                <Collapsible title="🧭 Muthawwif / Guide">
+                <Collapsible title="👳 Muthawwif / Guide">
                   <GuideSection
                     items={pkg.guides}
                     onChange={(guides) => setPkg({ ...pkg, guides })}
