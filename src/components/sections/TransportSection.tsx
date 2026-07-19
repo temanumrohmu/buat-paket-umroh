@@ -9,6 +9,7 @@ import {
   type TransportFieldMode,
   type TransportPreset,
 } from "@/lib/transportPresets";
+import { parseNumericInput } from "@/lib/number";
 
 const CURRENCIES = Object.keys(CURRENCY_LABELS) as Currency[];
 
@@ -110,12 +111,12 @@ function VehicleFields({
         <label className="text-sm">
           <span className="mb-1 block text-navy-700">Harga Sewa/Unit</span>
           <input
-            type="number"
+            type="text"
+            inputMode="decimal"
             onFocus={(e) => e.target.select()}
-            min={0}
             className="w-full rounded border border-navy-100 px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
             value={item.price}
-            onChange={(e) => onUpdate({ price: Number(e.target.value) })}
+            onChange={(e) => onUpdate({ price: parseNumericInput(e.target.value) })}
           />
         </label>
         <label className="text-sm">
@@ -136,12 +137,12 @@ function VehicleFields({
           <label className="text-sm">
             <span className="mb-1 block text-navy-700">Jumlah Unit</span>
             <input
-              type="number"
+              type="text"
+              inputMode="decimal"
               onFocus={(e) => e.target.select()}
-              min={0}
               className="w-full rounded border border-navy-100 px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
               value={item.qty}
-              onChange={(e) => onUpdate({ qty: Number(e.target.value) })}
+              onChange={(e) => onUpdate({ qty: parseNumericInput(e.target.value) })}
             />
           </label>
         )}
@@ -181,12 +182,12 @@ function PerOrangFields({
         <label className="text-sm">
           <span className="mb-1 block text-navy-700">Harga per Orang</span>
           <input
-            type="number"
+            type="text"
+            inputMode="decimal"
             onFocus={(e) => e.target.select()}
-            min={0}
             className="w-full rounded border border-navy-100 px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
             value={item.price}
-            onChange={(e) => onUpdate({ price: Number(e.target.value) })}
+            onChange={(e) => onUpdate({ price: parseNumericInput(e.target.value) })}
           />
         </label>
         <label className="text-sm">
@@ -260,12 +261,12 @@ function CustomRouteFields({
         <label className="text-sm">
           <span className="mb-1 block text-navy-700">Harga Sewa/Unit</span>
           <input
-            type="number"
+            type="text"
+            inputMode="decimal"
             onFocus={(e) => e.target.select()}
-            min={0}
             className="w-full rounded border border-navy-100 bg-white px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
             value={item.price}
-            onChange={(e) => onUpdate({ price: Number(e.target.value) })}
+            onChange={(e) => onUpdate({ price: parseNumericInput(e.target.value) })}
           />
         </label>
         <label className="text-sm">
@@ -286,12 +287,12 @@ function CustomRouteFields({
           <label className="text-sm">
             <span className="mb-1 block text-navy-700">Jumlah Unit</span>
             <input
-              type="number"
+              type="text"
+              inputMode="decimal"
               onFocus={(e) => e.target.select()}
-              min={0}
               className="w-full rounded border border-navy-100 bg-white px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
               value={item.qty}
-              onChange={(e) => onUpdate({ qty: Number(e.target.value) })}
+              onChange={(e) => onUpdate({ qty: parseNumericInput(e.target.value) })}
             />
           </label>
         )}
@@ -343,12 +344,12 @@ function CustomItemFields({
         <label className="text-sm">
           <span className="mb-1 block text-navy-700">{isTotal ? "Harga Total" : "Harga per Pax"}</span>
           <input
-            type="number"
+            type="text"
+            inputMode="decimal"
             onFocus={(e) => e.target.select()}
-            min={0}
             className="w-full rounded border border-navy-100 bg-white px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
             value={item.price}
-            onChange={(e) => onUpdate({ price: Number(e.target.value) })}
+            onChange={(e) => onUpdate({ price: parseNumericInput(e.target.value) })}
           />
         </label>
         <label className="text-sm">

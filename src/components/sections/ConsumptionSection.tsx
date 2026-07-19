@@ -3,6 +3,7 @@
 import { CURRENCY_LABELS, type Currency, type ConsumptionItem, type PricingMode } from "@/lib/types";
 import { consumptionTotal, type Rates } from "@/lib/calc";
 import { CONSUMPTION_PRESETS, type ConsumptionPreset } from "@/lib/consumptionPresets";
+import { parseNumericInput } from "@/lib/number";
 
 const CURRENCIES = Object.keys(CURRENCY_LABELS) as Currency[];
 
@@ -77,12 +78,12 @@ function PriceFields({
         <span className="mb-1 block text-navy-700">Harga Total</span>
         <div className="flex gap-2">
           <input
-            type="number"
+            type="text"
+            inputMode="decimal"
             onFocus={(e) => e.target.select()}
-            min={0}
             className="w-full rounded border border-navy-100 px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
             value={item.price}
-            onChange={(e) => onUpdate({ price: Number(e.target.value) })}
+            onChange={(e) => onUpdate({ price: parseNumericInput(e.target.value) })}
           />
           <select
             className="rounded border border-navy-100 px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
@@ -101,12 +102,12 @@ function PriceFields({
         <label className="block text-sm">
           <span className="mb-1 block text-navy-700">Jumlah Hari</span>
           <input
-            type="number"
+            type="text"
+            inputMode="decimal"
             onFocus={(e) => e.target.select()}
-            min={0}
             className="w-full rounded border border-navy-100 px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
             value={item.days}
-            onChange={(e) => onUpdate({ days: Number(e.target.value) })}
+            onChange={(e) => onUpdate({ days: parseNumericInput(e.target.value) })}
           />
         </label>
       )}

@@ -16,6 +16,7 @@ import LaporanView from "@/components/LaporanView";
 import { emptyPackage, toDateInputValue, calculateTripLength, type PackageData } from "@/lib/types";
 import type { Rates } from "@/lib/calc";
 import { exportPackagePdf, shareToWhatsApp } from "@/lib/export";
+import { parseNumericInput } from "@/lib/number";
 
 type View = "input" | "laporan";
 
@@ -226,12 +227,12 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                     <label className="text-sm">
                       <span className="mb-1 block text-navy-700">Jumlah Pax</span>
                       <input
-                        type="number"
+                        type="text"
+                        inputMode="decimal"
                         onFocus={(e) => e.target.select()}
-                        min={1}
                         className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none"
                         value={pkg.participants}
-                        onChange={(e) => setPkg({ ...pkg, participants: Number(e.target.value) })}
+                        onChange={(e) => setPkg({ ...pkg, participants: parseNumericInput(e.target.value) })}
                       />
                     </label>
 
@@ -239,23 +240,23 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                       <label className="text-sm">
                         <span className="mb-1 block text-navy-700">Mlm Makkah</span>
                         <input
-                          type="number"
+                          type="text"
+                          inputMode="decimal"
                           onFocus={(e) => e.target.select()}
-                          min={0}
                           className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none"
                           value={pkg.nightsMakkah}
-                          onChange={(e) => setPkg({ ...pkg, nightsMakkah: Number(e.target.value) })}
+                          onChange={(e) => setPkg({ ...pkg, nightsMakkah: parseNumericInput(e.target.value) })}
                         />
                       </label>
                       <label className="text-sm">
                         <span className="mb-1 block text-navy-700">Mlm Madinah</span>
                         <input
-                          type="number"
+                          type="text"
+                          inputMode="decimal"
                           onFocus={(e) => e.target.select()}
-                          min={0}
                           className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none"
                           value={pkg.nightsMadinah}
-                          onChange={(e) => setPkg({ ...pkg, nightsMadinah: Number(e.target.value) })}
+                          onChange={(e) => setPkg({ ...pkg, nightsMadinah: parseNumericInput(e.target.value) })}
                         />
                       </label>
                       <label className="text-sm">
@@ -275,12 +276,12 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                     <label className="text-sm sm:col-span-2">
                       <span className="mb-1 block text-navy-700">Margin Keuntungan (%)</span>
                       <input
-                        type="number"
+                        type="text"
+                        inputMode="decimal"
                         onFocus={(e) => e.target.select()}
-                        min={0}
                         className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none sm:w-1/2"
                         value={pkg.marginPercent}
-                        onChange={(e) => setPkg({ ...pkg, marginPercent: Number(e.target.value) })}
+                        onChange={(e) => setPkg({ ...pkg, marginPercent: parseNumericInput(e.target.value) })}
                       />
                     </label>
 
@@ -288,23 +289,23 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                       <label className="text-sm">
                         <span className="mb-1 block font-medium text-white">Kurs SAR → IDR</span>
                         <input
-                          type="number"
+                          type="text"
+                          inputMode="decimal"
                           onFocus={(e) => e.target.select()}
-                          min={0}
                           className="w-full rounded border border-navy-700 bg-white px-2 py-1.5 focus:border-gold-400 focus:outline-none"
                           value={pkg.exchangeRate}
-                          onChange={(e) => setPkg({ ...pkg, exchangeRate: Number(e.target.value) })}
+                          onChange={(e) => setPkg({ ...pkg, exchangeRate: parseNumericInput(e.target.value) })}
                         />
                       </label>
                       <label className="text-sm">
                         <span className="mb-1 block font-medium text-white">Kurs USD → IDR</span>
                         <input
-                          type="number"
+                          type="text"
+                          inputMode="decimal"
                           onFocus={(e) => e.target.select()}
-                          min={0}
                           className="w-full rounded border border-navy-700 bg-white px-2 py-1.5 focus:border-gold-400 focus:outline-none"
                           value={pkg.usdRate}
-                          onChange={(e) => setPkg({ ...pkg, usdRate: Number(e.target.value) })}
+                          onChange={(e) => setPkg({ ...pkg, usdRate: parseNumericInput(e.target.value) })}
                         />
                       </label>
                     </div>

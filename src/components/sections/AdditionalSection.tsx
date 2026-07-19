@@ -2,6 +2,7 @@
 
 import { CURRENCY_LABELS, type AdditionalItem, type Currency, type PricingMode } from "@/lib/types";
 import { additionalTotal, type Rates } from "@/lib/calc";
+import { parseNumericInput } from "@/lib/number";
 
 const CURRENCIES = Object.keys(CURRENCY_LABELS) as Currency[];
 
@@ -88,12 +89,12 @@ export default function AdditionalSection({
                 <span className="mb-1 block text-navy-700">{isTotal ? "Harga Total" : "Harga/Pax"}</span>
                 <div className="flex gap-2">
                   <input
-                    type="number"
+                    type="text"
+                    inputMode="decimal"
                     onFocus={(e) => e.target.select()}
-                    min={0}
                     className="w-full rounded border border-navy-100 bg-white px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
                     value={item.price}
-                    onChange={(e) => update(index, { price: Number(e.target.value) })}
+                    onChange={(e) => update(index, { price: parseNumericInput(e.target.value) })}
                   />
                   <select
                     className="rounded border border-navy-100 bg-white px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
@@ -112,12 +113,12 @@ export default function AdditionalSection({
                 <label className="text-sm">
                   <span className="mb-1 block text-navy-700">Qty</span>
                   <input
-                    type="number"
+                    type="text"
+                    inputMode="decimal"
                     onFocus={(e) => e.target.select()}
-                    min={0}
                     className="w-full rounded border border-navy-100 bg-white px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
                     value={item.qty}
-                    onChange={(e) => update(index, { qty: Number(e.target.value) })}
+                    onChange={(e) => update(index, { qty: parseNumericInput(e.target.value) })}
                   />
                 </label>
               )}

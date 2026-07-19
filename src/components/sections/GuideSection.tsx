@@ -2,6 +2,7 @@
 
 import { CURRENCY_LABELS, type Currency, type GuideItem, type PricingMode } from "@/lib/types";
 import { guideTotal, type Rates } from "@/lib/calc";
+import { parseNumericInput } from "@/lib/number";
 
 const CURRENCIES = Object.keys(CURRENCY_LABELS) as Currency[];
 
@@ -127,12 +128,12 @@ export default function GuideSection({
             </span>
             <div className="flex gap-2">
               <input
-                type="number"
+                type="text"
+                inputMode="decimal"
                 onFocus={(e) => e.target.select()}
-                min={0}
                 className="w-full rounded border border-navy-100 px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
                 value={mainItem.rate}
-                onChange={(e) => updateMain({ rate: Number(e.target.value) })}
+                onChange={(e) => updateMain({ rate: parseNumericInput(e.target.value) })}
               />
               <select
                 className="rounded border border-navy-100 px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
@@ -150,12 +151,12 @@ export default function GuideSection({
           <label className="text-sm">
             <span className="mb-1 block text-navy-700">Jumlah Hari</span>
             <input
-              type="number"
+              type="text"
+              inputMode="decimal"
               onFocus={(e) => e.target.select()}
-              min={0}
               className="w-full rounded border border-navy-100 px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
               value={mainItem.days}
-              onChange={(e) => updateMain({ days: Number(e.target.value) })}
+              onChange={(e) => updateMain({ days: parseNumericInput(e.target.value) })}
             />
           </label>
         </div>
@@ -200,12 +201,12 @@ export default function GuideSection({
               <label className="text-sm">
                 <span className="mb-1 block text-navy-700">{isTotal ? "Harga Total" : "Harga per Pax"}</span>
                 <input
-                  type="number"
+                  type="text"
+                  inputMode="decimal"
                   onFocus={(e) => e.target.select()}
-                  min={0}
                   className="w-full rounded border border-navy-100 bg-white px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
                   value={item.rate}
-                  onChange={(e) => updateCustom(offsetIndex, { rate: Number(e.target.value) })}
+                  onChange={(e) => updateCustom(offsetIndex, { rate: parseNumericInput(e.target.value) })}
                 />
               </label>
               <label className="text-sm">

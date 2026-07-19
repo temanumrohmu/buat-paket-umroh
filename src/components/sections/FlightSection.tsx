@@ -2,6 +2,7 @@
 
 import { CURRENCY_LABELS, type Currency, type FlightItem, type PricingMode } from "@/lib/types";
 import { flightTotal, formatSAR, toSAR, type Rates } from "@/lib/calc";
+import { parseNumericInput } from "@/lib/number";
 
 const CURRENCIES = Object.keys(CURRENCY_LABELS) as Currency[];
 
@@ -90,12 +91,12 @@ export default function FlightSection({
                   {isTotal ? "Total Harga Tiket" : "Harga per Pax"}
                 </span>
                 <input
-                  type="number"
+                  type="text"
+                  inputMode="decimal"
                   onFocus={(e) => e.target.select()}
-                  min={0}
                   className="w-full rounded border border-navy-100 px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
                   value={item.price}
-                  onChange={(e) => update(index, { price: Number(e.target.value) })}
+                  onChange={(e) => update(index, { price: parseNumericInput(e.target.value) })}
                 />
               </label>
               <label className="text-sm">
@@ -116,12 +117,12 @@ export default function FlightSection({
                 <label className="text-sm">
                   <span className="mb-1 block text-navy-700">Jumlah Orang</span>
                   <input
-                    type="number"
+                    type="text"
+                    inputMode="decimal"
                     onFocus={(e) => e.target.select()}
-                    min={0}
                     className="w-full rounded border border-navy-100 px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
                     value={item.qty}
-                    onChange={(e) => update(index, { qty: Number(e.target.value) })}
+                    onChange={(e) => update(index, { qty: parseNumericInput(e.target.value) })}
                   />
                 </label>
               )}

@@ -2,6 +2,7 @@
 
 import { CURRENCY_LABELS, ROOM_TYPE_LABELS, type Currency, type HotelItem, type RoomType } from "@/lib/types";
 import { hotelTotal, type Rates } from "@/lib/calc";
+import { parseNumericInput } from "@/lib/number";
 
 const ROOM_TYPES = Object.keys(ROOM_TYPE_LABELS) as RoomType[];
 const CURRENCIES = Object.keys(CURRENCY_LABELS) as Currency[];
@@ -95,12 +96,12 @@ export default function HotelSection({
             <label className="text-sm">
               <span className="mb-1 block text-navy-700">Jumlah Malam</span>
               <input
-                type="number"
+                type="text"
+                inputMode="decimal"
                 onFocus={(e) => e.target.select()}
-                min={0}
                 className="w-full rounded border border-navy-100 px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
                 value={item.nights}
-                onChange={(e) => update(idx, { nights: Number(e.target.value) })}
+                onChange={(e) => update(idx, { nights: parseNumericInput(e.target.value) })}
               />
             </label>
             <label className="text-sm">
@@ -120,23 +121,23 @@ export default function HotelSection({
             <label className="text-sm">
               <span className="mb-1 block text-navy-700">Jumlah Kamar</span>
               <input
-                type="number"
+                type="text"
+                inputMode="decimal"
                 onFocus={(e) => e.target.select()}
-                min={0}
                 className="w-full rounded border border-navy-100 px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
                 value={item.rooms}
-                onChange={(e) => update(idx, { rooms: Number(e.target.value) })}
+                onChange={(e) => update(idx, { rooms: parseNumericInput(e.target.value) })}
               />
             </label>
             <label className="text-sm">
               <span className="mb-1 block text-navy-700">Harga/Kamar/Malam</span>
               <input
-                type="number"
+                type="text"
+                inputMode="decimal"
                 onFocus={(e) => e.target.select()}
-                min={0}
                 className="w-full rounded border border-navy-100 px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
                 value={item.ratePerNight}
-                onChange={(e) => update(idx, { ratePerNight: Number(e.target.value) })}
+                onChange={(e) => update(idx, { ratePerNight: parseNumericInput(e.target.value) })}
               />
             </label>
             <label className="text-sm">
