@@ -7,6 +7,7 @@ import type {
   GuideItem,
   AdditionalItem,
   HandlingItem,
+  ConsumptionItem,
   Currency,
 } from "./types";
 
@@ -57,6 +58,11 @@ export function handlingTotal(item: HandlingItem, participants: number, rates: R
   return item.pricingMode === "TOTAL" ? priceSAR : priceSAR * participants;
 }
 
+export function consumptionTotal(item: ConsumptionItem, participants: number, rates: Rates): number {
+  const priceSAR = toSAR(item.price, item.currency, rates) * (item.days || 1);
+  return item.pricingMode === "TOTAL" ? priceSAR : priceSAR * participants;
+}
+
 export interface SectionSubtotal {
   hotels: number;
   flights: number;
@@ -65,6 +71,7 @@ export interface SectionSubtotal {
   guides: number;
   additionals: number;
   handlings: number;
+  consumptions: number;
 }
 
 export interface HppResult {
@@ -92,6 +99,7 @@ export function calculateHpp(pkg: PackageData): HppResult {
     guides: pkg.guides.reduce((sum, i) => sum + guideTotal(i, participants, rates), 0),
     additionals: pkg.additionals.reduce((sum, i) => sum + additionalTotal(i, participants, rates), 0),
     handlings: pkg.handlings.reduce((sum, i) => sum + handlingTotal(i, participants, rates), 0),
+    consumptions: pkg.consumptions.reduce((sum, i) => sum + consumptionTotal(i, participants, rates), 0),
   };
 
   const subtotalSAR =
@@ -101,7 +109,8 @@ export function calculateHpp(pkg: PackageData): HppResult {
     sections.transports +
     sections.guides +
     sections.additionals +
-    sections.handlings;
+    sections.handlings +
+    sections.consumptions;
 
   const marginSAR = subtotalSAR * ((pkg.marginPercent || 0) / 100);
   const grandTotalSAR = subtotalSAR + marginSAR;

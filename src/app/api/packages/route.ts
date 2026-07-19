@@ -9,6 +9,7 @@ import {
   toTransportCreateInput,
   toGuideCreateInput,
   toHandlingCreateInput,
+  toConsumptionCreateInput,
   type PackageData,
 } from "@/lib/types";
 
@@ -45,6 +46,7 @@ export async function POST(request: NextRequest) {
       guides: { create: body.guides?.map(toGuideCreateInput) ?? [] },
       additionals: { create: body.additionals?.map(toLineItemCreateInput) ?? [] },
       handlings: { create: body.handlings?.map(toHandlingCreateInput) ?? [] },
+      consumptions: { create: body.consumptions?.map(toConsumptionCreateInput) ?? [] },
     },
     include: packageInclude,
   });

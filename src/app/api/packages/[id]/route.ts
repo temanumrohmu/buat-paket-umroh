@@ -9,6 +9,7 @@ import {
   toTransportCreateInput,
   toGuideCreateInput,
   toHandlingCreateInput,
+  toConsumptionCreateInput,
   type PackageData,
 } from "@/lib/types";
 
@@ -78,6 +79,10 @@ export async function PUT(request: NextRequest, ctx: RouteContext<"/api/packages
       handlings: {
         deleteMany: {},
         create: body.handlings?.map(toHandlingCreateInput) ?? [],
+      },
+      consumptions: {
+        deleteMany: {},
+        create: body.consumptions?.map(toConsumptionCreateInput) ?? [],
       },
     },
     include: packageInclude,

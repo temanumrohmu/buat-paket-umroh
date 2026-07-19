@@ -6,4 +6,5 @@ export const packageInclude = {
   guides: true,
   additionals: true,
   handlings: true,
+  consumptions: true,
 } as const;

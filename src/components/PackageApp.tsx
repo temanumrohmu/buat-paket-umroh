@@ -10,6 +10,7 @@ import DocumentSection from "@/components/sections/DocumentSection";
 import TransportSection from "@/components/sections/TransportSection";
 import AdditionalSection from "@/components/sections/AdditionalSection";
 import HandlingSection from "@/components/sections/HandlingSection";
+import ConsumptionSection from "@/components/sections/ConsumptionSection";
 import SummaryPanel from "@/components/SummaryPanel";
 import LaporanView from "@/components/LaporanView";
 import { emptyPackage, toDateInputValue, calculateTripLength, type PackageData } from "@/lib/types";
@@ -356,6 +357,15 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                   <HandlingSection
                     items={pkg.handlings}
                     onChange={(handlings) => setPkg({ ...pkg, handlings })}
+                    participants={participants}
+                    rates={rates}
+                  />
+                </Collapsible>
+
+                <Collapsible title="Konsumsi">
+                  <ConsumptionSection
+                    items={pkg.consumptions}
+                    onChange={(consumptions) => setPkg({ ...pkg, consumptions })}
                     participants={participants}
                     rates={rates}
                   />

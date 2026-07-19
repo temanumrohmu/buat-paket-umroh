@@ -94,6 +94,16 @@ export interface HandlingItem {
   pricingMode: PricingMode;
 }
 
+export interface ConsumptionItem {
+  id?: string;
+  presetKey?: string | null;
+  label: string;
+  days: number;
+  price: number;
+  currency: Currency;
+  pricingMode: PricingMode;
+}
+
 export interface PackageData {
   id?: string;
   name: string;
@@ -112,6 +122,7 @@ export interface PackageData {
   guides: GuideItem[];
   additionals: AdditionalItem[];
   handlings: HandlingItem[];
+  consumptions: ConsumptionItem[];
 }
 
 // Nested items coming back from the API carry server-only fields (packageId,
@@ -200,6 +211,17 @@ export function toHandlingCreateInput(item: HandlingItem) {
   };
 }
 
+export function toConsumptionCreateInput(item: ConsumptionItem) {
+  return {
+    presetKey: item.presetKey ?? null,
+    label: item.label,
+    days: item.days,
+    price: item.price,
+    currency: item.currency,
+    pricingMode: item.pricingMode,
+  };
+}
+
 export function emptyPackage(): PackageData {
   return {
     name: "",
@@ -218,6 +240,7 @@ export function emptyPackage(): PackageData {
     guides: [],
     additionals: [],
     handlings: [],
+    consumptions: [],
   };
 }
 

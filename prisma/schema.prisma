@@ -43,6 +43,7 @@ model Package {
   guides       GuideFee[]
   additionals  AdditionalService[]
   handlings    Handling[]
+  consumptions Consumption[]
 }
 
 model Hotel {
@@ -136,6 +137,19 @@ model Handling {
   category   String      @default("LAINNYA")
   presetKey  String?
   label      String
+  price      Float       @default(0)
+  currency     Currency    @default(SAR)
+  pricingMode  PricingMode @default(TOTAL)
+  createdAt  DateTime    @default(now())
+}
+
+model Consumption {
+  id         String      @id @default(cuid())
+  package    Package     @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  packageId  String
+  presetKey  String?
+  label      String
+  days       Int         @default(1)
   price      Float       @default(0)
   currency     Currency    @default(SAR)
   pricingMode  PricingMode @default(TOTAL)
