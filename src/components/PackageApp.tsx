@@ -219,6 +219,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                       <span className="mb-1 block text-navy-700">Jumlah Pax</span>
                       <input
                         type="number"
+                        onFocus={(e) => e.target.select()}
                         min={1}
                         className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none"
                         value={pkg.participants}
@@ -231,6 +232,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                         <span className="mb-1 block text-navy-700">Mlm Makkah</span>
                         <input
                           type="number"
+                          onFocus={(e) => e.target.select()}
                           min={0}
                           className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none"
                           value={pkg.nightsMakkah}
@@ -241,6 +243,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                         <span className="mb-1 block text-navy-700">Mlm Madinah</span>
                         <input
                           type="number"
+                          onFocus={(e) => e.target.select()}
                           min={0}
                           className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none"
                           value={pkg.nightsMadinah}
@@ -266,6 +269,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                       <span className="mb-1 block text-navy-700">Margin Keuntungan (%)</span>
                       <input
                         type="number"
+                        onFocus={(e) => e.target.select()}
                         min={0}
                         className="w-full rounded border border-navy-100 px-2 py-1.5 focus:border-gold-400 focus:outline-none sm:w-1/2"
                         value={pkg.marginPercent}
@@ -278,6 +282,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                         <span className="mb-1 block font-medium text-white">Kurs SAR → IDR</span>
                         <input
                           type="number"
+                          onFocus={(e) => e.target.select()}
                           min={0}
                           className="w-full rounded border border-navy-700 bg-white px-2 py-1.5 focus:border-gold-400 focus:outline-none"
                           value={pkg.exchangeRate}
@@ -288,6 +293,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                         <span className="mb-1 block font-medium text-white">Kurs USD → IDR</span>
                         <input
                           type="number"
+                          onFocus={(e) => e.target.select()}
                           min={0}
                           className="w-full rounded border border-navy-700 bg-white px-2 py-1.5 focus:border-gold-400 focus:outline-none"
                           value={pkg.usdRate}

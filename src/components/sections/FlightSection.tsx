@@ -91,6 +91,7 @@ export default function FlightSection({
                 </span>
                 <input
                   type="number"
+                  onFocus={(e) => e.target.select()}
                   min={0}
                   className="w-full rounded border border-navy-100 px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
                   value={item.price}
@@ -116,6 +117,7 @@ export default function FlightSection({
                   <span className="mb-1 block text-navy-700">Jumlah Orang</span>
                   <input
                     type="number"
+                    onFocus={(e) => e.target.select()}
                     min={0}
                     className="w-full rounded border border-navy-100 px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
                     value={item.qty}

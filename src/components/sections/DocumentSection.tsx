@@ -45,6 +45,7 @@ function PriceFields({
         <div className="flex gap-2">
           <input
             type="number"
+            onFocus={(e) => e.target.select()}
             min={0}
             className="w-full rounded border border-navy-100 px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
             value={item.price}

@@ -111,6 +111,7 @@ function VehicleFields({
           <span className="mb-1 block text-navy-700">Harga Sewa/Unit</span>
           <input
             type="number"
+            onFocus={(e) => e.target.select()}
             min={0}
             className="w-full rounded border border-navy-100 px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
             value={item.price}
@@ -136,6 +137,7 @@ function VehicleFields({
             <span className="mb-1 block text-navy-700">Jumlah Unit</span>
             <input
               type="number"
+              onFocus={(e) => e.target.select()}
               min={0}
               className="w-full rounded border border-navy-100 px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
               value={item.qty}
@@ -180,6 +182,7 @@ function PerOrangFields({
           <span className="mb-1 block text-navy-700">Harga per Orang</span>
           <input
             type="number"
+            onFocus={(e) => e.target.select()}
             min={0}
             className="w-full rounded border border-navy-100 px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
             value={item.price}
@@ -258,6 +261,7 @@ function CustomRouteFields({
           <span className="mb-1 block text-navy-700">Harga Sewa/Unit</span>
           <input
             type="number"
+            onFocus={(e) => e.target.select()}
             min={0}
             className="w-full rounded border border-navy-100 bg-white px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
             value={item.price}
@@ -283,6 +287,7 @@ function CustomRouteFields({
             <span className="mb-1 block text-navy-700">Jumlah Unit</span>
             <input
               type="number"
+              onFocus={(e) => e.target.select()}
               min={0}
               className="w-full rounded border border-navy-100 bg-white px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
               value={item.qty}
@@ -339,6 +344,7 @@ function CustomItemFields({
           <span className="mb-1 block text-navy-700">{isTotal ? "Harga Total" : "Harga per Pax"}</span>
           <input
             type="number"
+            onFocus={(e) => e.target.select()}
             min={0}
             className="w-full rounded border border-navy-100 bg-white px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
             value={item.price}
