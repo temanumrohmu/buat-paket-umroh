@@ -308,7 +308,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                   </div>
                 </div>
 
-                <Collapsible title="Hotel">
+                <Collapsible title="🏨 Hotel">
                   <div className="space-y-5">
                     <div>
                       <h4 className="mb-2 text-sm font-semibold text-navy-800">Hotel Makkah</h4>
@@ -331,7 +331,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                   </div>
                 </Collapsible>
 
-                <Collapsible title="Tiket Pesawat">
+                <Collapsible title="✈️ Tiket Pesawat">
                   <FlightSection
                     items={pkg.flights}
                     onChange={(flights) => setPkg({ ...pkg, flights })}
@@ -340,7 +340,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                   />
                 </Collapsible>
 
-                <Collapsible title="Dokumen & Visa">
+                <Collapsible title="📋 Dokumen & Visa">
                   <DocumentSection
                     items={pkg.documents}
                     onChange={(documents) => setPkg({ ...pkg, documents })}
@@ -349,7 +349,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                   />
                 </Collapsible>
 
-                <Collapsible title="Transportasi">
+                <Collapsible title="🚐 Transportasi">
                   <TransportSection
                     items={pkg.transports}
                     onChange={(transports) => setPkg({ ...pkg, transports })}
@@ -358,7 +358,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                   />
                 </Collapsible>
 
-                <Collapsible title="Handling">
+                <Collapsible title="🧳 Handling">
                   <HandlingSection
                     items={pkg.handlings}
                     onChange={(handlings) => setPkg({ ...pkg, handlings })}
@@ -367,7 +367,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                   />
                 </Collapsible>
 
-                <Collapsible title="Konsumsi">
+                <Collapsible title="🍽️ Konsumsi">
                   <ConsumptionSection
                     items={pkg.consumptions}
                     onChange={(consumptions) => setPkg({ ...pkg, consumptions })}
@@ -376,7 +376,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                   />
                 </Collapsible>
 
-                <Collapsible title="Muthawwif / Guide">
+                <Collapsible title="🧭 Muthawwif / Guide">
                   <GuideSection
                     items={pkg.guides}
                     onChange={(guides) => setPkg({ ...pkg, guides })}
@@ -386,7 +386,7 @@ export default function PackageApp({ initialList }: { initialList: PackageData[]
                 </Collapsible>
 
                 <Collapsible
-                  title="Item Tambahan"
+                  title="➕ Item Tambahan"
                   badge={`${pkg.additionals.length} item`}
                   defaultOpen={false}
                 >
