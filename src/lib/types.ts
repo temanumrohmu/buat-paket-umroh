@@ -8,22 +8,12 @@ export const CURRENCY_LABELS: Record<Currency, string> = {
   USD: "USD",
 };
 
-export type RoomType = "DOUBLE" | "TRIPLE" | "QUAD" | "QUINT" | "CUSTOM";
-
-export const ROOM_TYPE_LABELS: Record<RoomType, string> = {
-  DOUBLE: "Double (2)",
-  TRIPLE: "Triple (3)",
-  QUAD: "Quad (4)",
-  QUINT: "Quint (5)",
-  CUSTOM: "Custom / Apartemen",
-};
-
 export interface HotelItem {
   id?: string;
   city: string;
   name: string;
   stars: number;
-  roomType: RoomType;
+  roomType: string;
   nights: number;
   rooms: number;
   ratePerNight: number;

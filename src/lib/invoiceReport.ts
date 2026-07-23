@@ -9,15 +9,7 @@ import {
   consumptionTotal,
   type Rates,
 } from "./calc";
-import { calculateTripLength, toDateInputValue, type PackageData, type RoomType } from "./types";
-
-const ROOM_TYPE_SHORT: Record<RoomType, string> = {
-  DOUBLE: "Double",
-  TRIPLE: "Triple",
-  QUAD: "Quad",
-  QUINT: "Quint",
-  CUSTOM: "Custom",
-};
+import { calculateTripLength, toDateInputValue, type PackageData } from "./types";
 
 const MONTHS_ID = [
   "Jan", "Feb", "Mar", "Apr", "Mei", "Jun",
@@ -79,7 +71,7 @@ export function buildInvoiceCategories(pkg: PackageData, rates: Rates, participa
     const propertyName = rows.find((r) => r.name)?.name || "";
     const compositionRows = rows.map((r) => {
       const amount = hotelTotal(r, rates);
-      return `${ROOM_TYPE_SHORT[r.roomType]}: ${r.rooms} kmr x ${r.nights} mlm = ${formatMoneySAR(amount)}`;
+      return `${r.roomType || "Kamar"}: ${r.rooms} kmr x ${r.nights} mlm = ${formatMoneySAR(amount)}`;
     });
     const totalSAR = rows.reduce((sum, r) => sum + hotelTotal(r, rates), 0);
     hotelItems.push({
