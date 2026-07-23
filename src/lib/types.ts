@@ -79,6 +79,7 @@ export interface HandlingItem {
   category: string;
   presetKey?: string | null;
   label: string;
+  notes: string;
   price: number;
   currency: Currency;
   pricingMode: PricingMode;
@@ -195,6 +196,7 @@ export function toHandlingCreateInput(item: HandlingItem) {
     category: item.category,
     presetKey: item.presetKey ?? null,
     label: item.label,
+    notes: item.notes,
     price: item.price,
     currency: item.currency,
     pricingMode: item.pricingMode,

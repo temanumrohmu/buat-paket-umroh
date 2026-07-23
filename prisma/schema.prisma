@@ -137,6 +137,7 @@ model Handling {
   category   String      @default("LAINNYA")
   presetKey  String?
   label      String
+  notes      String      @default("")
   price      Float       @default(0)
   currency     Currency    @default(SAR)
   pricingMode  PricingMode @default(TOTAL)

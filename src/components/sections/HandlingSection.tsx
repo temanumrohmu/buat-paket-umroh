@@ -18,7 +18,7 @@ function emptyHandlingItem(
   label: string,
   pricingMode: PricingMode,
 ): HandlingItem {
-  return { category, presetKey, label, price: 0, currency: "SAR", pricingMode };
+  return { category, presetKey, label, notes: "", price: 0, currency: "SAR", pricingMode };
 }
 
 function RemoveButton({ onClick }: { onClick: () => void }) {
@@ -110,6 +110,15 @@ function PriceFields({
             ))}
           </select>
         </div>
+      </label>
+      <label className="block text-sm">
+        <span className="mb-1 block text-navy-700">Catatan</span>
+        <input
+          className="w-full rounded border border-navy-100 px-2 py-1.5 text-sm focus:border-gold-400 focus:outline-none"
+          placeholder="Catatan tambahan..."
+          value={item.notes}
+          onChange={(e) => onUpdate({ notes: e.target.value })}
+        />
       </label>
     </div>
   );
